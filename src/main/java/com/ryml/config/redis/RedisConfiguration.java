@@ -25,7 +25,6 @@ public class RedisConfiguration {
 
     @Bean
     public JedisPool testJedisPool(@Autowired MyJedisPoolConfig myJedisPoolConfig) {
-        System.out.println("测试jedisConfiguration"+ JSONObject.toJSONString(myJedisPoolConfig));
         return new JedisPool(myJedisPoolConfig, myJedisPoolConfig.getHost(), myJedisPoolConfig.getPort());
     }
 

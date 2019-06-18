@@ -1,5 +1,7 @@
 package com.ryml.entity;
 
+import java.io.Serializable;
+
 /**
  * description:
  *
@@ -7,7 +9,7 @@ package com.ryml.entity;
  * @version V1.0
  * @date 2019/6/17
  */
-public class Student {
+public class Student implements Serializable{
 
     private Integer id;
 

@@ -1,14 +1,11 @@
 package com.ryml.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.ryml.entity.Student;
-import com.ryml.mapper.StudentMapper;
+import com.ryml.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import java.util.List;
 
@@ -24,17 +21,12 @@ import java.util.List;
 public class TestController {
 
     @Autowired
-    private StudentMapper studentMapper;
-
-    @Autowired
-    private JedisPool jedisPool;
+    private StudentService studentService;
 
     @RequestMapping("/getAll")
     @ResponseBody
     public List<Student> getAll(){
-        Jedis resource = jedisPool.getResource();
-        System.out.println("测试Jedis"+ JSONObject.toJSONString(resource));
-        return studentMapper.getAll();
+        return studentService.getAll();
     }
 
 }

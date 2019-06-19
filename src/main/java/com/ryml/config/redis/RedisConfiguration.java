@@ -1,3 +1,4 @@
+/*
 package com.ryml.config.redis;
 
 import com.alibaba.fastjson.JSONObject;
@@ -7,13 +8,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
 
+*/
 /**
  * description:
  *
  * @author 刘一博
  * @version V1.0
  * @date 2019/6/17
- */
+ *//*
+
 @Configuration
 public class RedisConfiguration {
 
@@ -29,3 +32,4 @@ public class RedisConfiguration {
     }
 
 }
+*/

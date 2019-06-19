@@ -1,14 +1,14 @@
-package com.ryml.config.redis;
+/*package com.ryml.config.redis;
 
 import redis.clients.jedis.JedisPoolConfig;
 
-/**
+*//**
  * description:jedis配置类
  *
  * @author 刘一博
  * @version V1.0
  * @date 2019/6/17
- */
+ *//*
 public class MyJedisPoolConfig extends JedisPoolConfig{
 
     private Integer port;
@@ -29,4 +29,4 @@ public class MyJedisPoolConfig extends JedisPoolConfig{
     public void setHost(String host) {
         this.host = host;
     }
-}
+}*/

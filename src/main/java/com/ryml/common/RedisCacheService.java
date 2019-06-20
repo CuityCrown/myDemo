@@ -1,5 +1,9 @@
 package com.ryml.common;
 
+import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * description:
  *
@@ -9,7 +13,20 @@ package com.ryml.common;
  */
 public abstract class RedisCacheService <K,V>{
 
+    private static final Logger logger = LoggerFactory.getLogger(RedisCacheService.class);
+
     public V get(K k){
+        try {
+            V value = this.getValue(k);
+            if (value != null){
+                return value;
+            }
+            V dataForDB = this.getDataForDB(k);
+            this.setValue(k,dataForDB);
+            return dataForDB;
+        }catch (Exception e){
+            logger.error("从缓存获取数据失败"+ JSONObject.toJSONString(k),e);
+        }
         return null;
     }
 
@@ -24,6 +41,6 @@ public abstract class RedisCacheService <K,V>{
 
     public abstract void deleteValue(K k);
 
-    public abstract V getDataForDB();
+    public abstract V getDataForDB(K k);
 
 }

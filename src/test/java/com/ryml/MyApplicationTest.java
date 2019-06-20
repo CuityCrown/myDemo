@@ -28,6 +28,7 @@ public class MyApplicationTest {
         ValueOperations<String, Integer> stringIntegerValueOperations = redisTemplate.opsForValue();
         stringIntegerValueOperations.set(RedisCommonEnum.STUDENT.getValue(),1234123);
         System.out.println("测试======"+stringIntegerValueOperations.get(RedisCommonEnum.STUDENT.getValue()));
+
     }
 
 

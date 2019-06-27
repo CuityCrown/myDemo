@@ -1,5 +1,7 @@
 package com.ryml.entity;
 
+import com.ryml.annotation.NotNull;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +13,7 @@ import java.io.Serializable;
  */
 public class Student implements Serializable{
 
+    @NotNull(message = "id不能为空")
     private Integer id;
 
     private String name;

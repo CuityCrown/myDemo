@@ -22,7 +22,7 @@ public class WebConfiguration {
     public FilterRegistrationBean testFilterRegistrationBean(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new MyFilter());
-        filterRegistrationBean.addUrlPatterns("/*");
+        filterRegistrationBean.addUrlPatterns("*.do");
         filterRegistrationBean.addInitParameter("paramName", "paramValue");
         filterRegistrationBean.setName("MyFilter");
         filterRegistrationBean.setOrder(1);

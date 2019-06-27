@@ -22,16 +22,25 @@ public class MyValidator {
         }
         ValidateResult validateResult = new ValidateResult();
         Class<?> aClass = object.getClass();
+
+        //接口常量校验
         AnnotatedType[] annotatedInterfaces = aClass.getAnnotatedInterfaces();
         for (AnnotatedType annotatedInterface : annotatedInterfaces) {
-            annotatedInterface.getClass();
+            String typeName = annotatedInterface.getType().getTypeName();
+            Class<?> interfaceClass = Class.forName(typeName);
+            Field[] interfaceField = interfaceClass.getDeclaredFields();
+            validateAnnotation(validateResult,interfaceField,object);
         }
+
+        //父类属性校验
         AnnotatedType fatherClass = aClass.getAnnotatedSuperclass();
         Class<?> aClass1 = Class.forName(fatherClass.getType().getTypeName());
         Field[] declaredFields = aClass1.getDeclaredFields();
+        validateAnnotation(validateResult,declaredFields,object);
+
+        //自身属性校验
         Field[] fields = aClass.getDeclaredFields();
         validateAnnotation(validateResult,fields,object);
-        validateAnnotation(validateResult,declaredFields,object);
         return validateResult;
     }
 

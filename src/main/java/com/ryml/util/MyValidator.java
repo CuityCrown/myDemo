@@ -19,9 +19,10 @@ public class MyValidator {
             throw new RuntimeException("object can not be null");
         }
         try{
-            Field[] fields = object.getClass().getFields();
+            Field[] fields = object.getClass().getDeclaredFields();
             for (Field field : fields) {
                 NotNull annotation = field.getAnnotation(NotNull.class);
+                field.setAccessible(true);
                 if (annotation != null){
                     Object o = field.get(object);
                     if (o == null){
@@ -37,10 +38,7 @@ public class MyValidator {
 
     public static void main(String[] args) throws IllegalAccessException, NoSuchFieldException {
         Student student = new Student();
-       /* System.out.println(MyValidator.validate(student));*/
-        Field id = student.getClass().getField("id");
-        System.out.println(id.get(student)+"测试");
-
+        System.out.println(MyValidator.validate(student));
     }
 
 }

@@ -1,6 +1,7 @@
 package com.ryml.entity;
 
 import com.ryml.annotation.NotNull;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -11,7 +12,8 @@ import java.io.Serializable;
  * @version V1.0
  * @date 2019/6/17
  */
-public class Student implements Serializable{
+@Data
+public class Student extends MyStudent implements Serializable{
 
     @NotNull(message = "id不能为空")
     private Integer id;
@@ -20,27 +22,4 @@ public class Student implements Serializable{
 
     private Integer age;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 }

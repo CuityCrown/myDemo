@@ -1,5 +1,6 @@
 package com.ryml.util;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,34 +18,32 @@ public class ValidationContext<T> {
      */
     private ValidateResult validateResult = new ValidateResult();
 
-    private List<Class<?>> classList = new ArrayList<>();
+    private List<Field> fields = new ArrayList<Field>();
 
     /**
      * 需要校验的对象
      */
-    private Object object;
+    private T object;
 
     public ValidateResult getValidateResult() {
         return validateResult;
     }
 
-    public void setValidateResult(ValidateResult validateResult) {
-        this.validateResult = validateResult;
-    }
-
-    public Object getObject() {
+    public T getObject() {
         return object;
     }
 
-    public void setObject(Object object) {
+    public void addField(Field[] fields){
+        for (Field field : fields) {
+            this.fields.add(field);
+        }
+    }
+
+    public ValidationContext(T object) {
         this.object = object;
     }
 
-    public void addClassList(Class<?> aClass){
-        this.classList.add(aClass);
-    }
-
-    public List<Class<?>> getClassList() {
-        return classList;
+    public List<Field> getFields() {
+        return fields;
     }
 }

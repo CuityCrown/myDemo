@@ -1,14 +1,8 @@
 package com.ryml.util;
 
 import com.ryml.entity.Student;
-import com.ryml.service.MyVolidateForFieldActuator;
-import com.ryml.service.impl.InterfaceVolidateForField;
-import com.ryml.service.impl.NoumenonVolidateForField;
-import com.ryml.service.impl.ParentVolidateForFieldActuator;
-import com.ryml.service.impl.ValidateAnnotationActuator;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.ryml.service.Validator;
+import com.ryml.service.impl.FieldsValidator;
 
 /**
  * description:
@@ -19,33 +13,23 @@ import java.util.List;
  */
 public class MyValidator {
 
-    private static List<MyVolidateForFieldActuator> actuators;
-
-    static {
-        actuators = new ArrayList<>();
-        actuators.add(new InterfaceVolidateForField());
-        actuators.add(new NoumenonVolidateForField());
-        actuators.add(new ParentVolidateForFieldActuator());
-    }
-
-    public static ValidateResult validate(Object object) throws IllegalAccessException, ClassNotFoundException {
+    public static <T>  ValidateResult validate(T object) throws IllegalAccessException, ClassNotFoundException {
         if (object == null){
             throw new RuntimeException("object can not be null");
         }
-        ValidationContext validationContext = new ValidationContext();
-        validationContext.setObject(object);
-        for (MyVolidateForFieldActuator actuator : actuators) {
-            actuator.validateProperties(validationContext);
-        }
+        ValidationContext validationContext = new ValidationContext(object);
 
-        //create ValidateAnnotationActuator play validate
-        ValidateAnnotationActuator instance = ValidateAnnotationActuator.getInstance();
-        instance.validateProperties(validationContext);
+        Validator validator = new FieldsValidator();
+        //初始化校验前所需要的参数
+        validator.initValidationContext(validationContext);
+
+        //执行校验
+        validator.volidate(validationContext);
 
         return validationContext.getValidateResult();
     }
 
-    public static void main(String[] args) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
+    public static void main(String[] args) throws IllegalAccessException, ClassNotFoundException {
         Student student = new Student();
         System.out.println(MyValidator.validate(student).getMessages().toString());
     }

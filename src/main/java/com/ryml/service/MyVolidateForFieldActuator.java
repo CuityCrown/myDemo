@@ -11,6 +11,6 @@ import com.ryml.util.ValidationContext;
  */
 public interface MyVolidateForFieldActuator {
 
-    void validateProperties(ValidationContext validationContext);
+    void validateProperties(ValidationContext validationContext) throws ClassNotFoundException, IllegalAccessException;
 
 }

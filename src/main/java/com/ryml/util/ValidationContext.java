@@ -1,5 +1,8 @@
 package com.ryml.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * description:
  *
@@ -12,7 +15,9 @@ public class ValidationContext<T> {
     /**
      * 校验的结果以及不通过信息
      */
-    private ValidateResult validateResult;
+    private ValidateResult validateResult = new ValidateResult();
+
+    private List<Class<?>> classList = new ArrayList<>();
 
     /**
      * 需要校验的对象
@@ -33,5 +38,13 @@ public class ValidationContext<T> {
 
     public void setObject(T object) {
         this.object = object;
+    }
+
+    public void addClassList(Class<?> aClass){
+        this.classList.add(aClass);
+    }
+
+    public List<Class<?>> getClassList() {
+        return classList;
     }
 }

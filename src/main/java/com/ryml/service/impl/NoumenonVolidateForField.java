@@ -5,6 +5,8 @@ import com.ryml.util.ValidateResult;
 import com.ryml.util.ValidationContext;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * description:
  *
@@ -16,10 +18,11 @@ import org.springframework.stereotype.Service;
 public class NoumenonVolidateForField implements MyVolidateForFieldActuator {
 
     @Override
-    public void validateProperties(ValidationContext validationContext) {
+    public void validateProperties(ValidationContext validationContext) throws IllegalAccessException {
         Object object = validationContext.getObject();
-        ValidateResult validateResult = validationContext.getValidateResult();
-
+        ValidateAnnotationActuator instance = ValidateAnnotationActuator.getInstance();
+        validationContext.addClassList(object.getClass());
+        instance.validateProperties(validationContext);
     }
 
 }

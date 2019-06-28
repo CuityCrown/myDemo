@@ -35,7 +35,4 @@ public class ValidateResult {
         return messages;
     }
 
-    public void setMessages(List<String> messages) {
-        this.messages = messages;
-    }
 }

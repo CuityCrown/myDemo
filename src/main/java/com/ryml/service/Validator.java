@@ -12,17 +12,17 @@ import com.ryml.util.ValidationContext;
 public interface Validator {
 
     /**
-     * init validationContext before volidate
-     * @param validationContext
+     * init validationContext before validate
+     * @param object
      * @throws ClassNotFoundException
      */
-    void initValidationContext(ValidationContext validationContext) throws ClassNotFoundException;
+    <T> ValidationContext initValidationContext(T object) throws ClassNotFoundException;
 
     /**
-     * volidate
+     *
      * @param validationContext
      * @throws IllegalAccessException
      */
-    void volidate(ValidationContext validationContext) throws IllegalAccessException;
+    void validate(ValidationContext validationContext) throws IllegalAccessException;
 
 }

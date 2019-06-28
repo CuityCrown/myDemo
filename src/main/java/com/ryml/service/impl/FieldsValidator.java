@@ -19,7 +19,9 @@ import java.util.List;
 public class FieldsValidator implements Validator {
 
     @Override
-    public void initValidationContext(ValidationContext validationContext) throws ClassNotFoundException {
+    public <T> ValidationContext initValidationContext(T object) throws ClassNotFoundException {
+        ValidationContext validationContext = new ValidationContext(object);
+
         //本体类Field获取
         Class<?> aClass = validationContext.getObject().getClass();
         Field[] NoumenonFields = aClass.getDeclaredFields();
@@ -38,10 +40,11 @@ public class FieldsValidator implements Validator {
         Field[] parentFields = Class.forName(parentType.getType().getTypeName()).getDeclaredFields();
         validationContext.addField(parentFields);
 
+        return validationContext;
     }
 
     @Override
-    public void volidate(ValidationContext validationContext) throws IllegalAccessException {
+    public void validate(ValidationContext validationContext) throws IllegalAccessException {
         Object object = validationContext.getObject();
         ValidateResult validateResult = validationContext.getValidateResult();
         List<Field> fields = validationContext.getFields();

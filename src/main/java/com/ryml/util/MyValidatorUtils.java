@@ -11,27 +11,29 @@ import com.ryml.service.impl.FieldsValidator;
  * @version V1.0
  * @date 2019/6/27
  */
-public class MyValidator {
+public class MyValidatorUtils {
 
-    public static <T>  ValidateResult validate(T object) throws IllegalAccessException, ClassNotFoundException {
+    public static <T> ValidateResult validate(T object) throws IllegalAccessException, ClassNotFoundException {
         if (object == null){
             throw new RuntimeException("object can not be null");
+
         }
-        ValidationContext validationContext = new ValidationContext(object);
 
+        //create Validator by ElementType
         Validator validator = new FieldsValidator();
-        //初始化校验前所需要的参数
-        validator.initValidationContext(validationContext);
 
-        //执行校验
-        validator.volidate(validationContext);
+        //init validationContext
+        ValidationContext validationContext = validator.initValidationContext(object);
+
+        //execute validate
+        validator.validate(validationContext);
 
         return validationContext.getValidateResult();
     }
 
     public static void main(String[] args) throws IllegalAccessException, ClassNotFoundException {
         Student student = new Student();
-        System.out.println(MyValidator.validate(student).getMessages().toString());
+        System.out.println(MyValidatorUtils.validate(student).getMessages().toString());
     }
 
 }

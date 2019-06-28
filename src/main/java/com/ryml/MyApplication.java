@@ -15,8 +15,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @SpringBootApplication
 @MapperScan("/com/ryml/mapper")
 @EntityScan("/com/ryml/entity")
-public class TestApplication {
+public class MyApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TestApplication.class,args);
+        SpringApplication.run(MyApplication.class,args);
     }
 }

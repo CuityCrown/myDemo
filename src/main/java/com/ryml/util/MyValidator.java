@@ -5,6 +5,7 @@ import com.ryml.service.MyVolidateForFieldActuator;
 import com.ryml.service.impl.InterfaceVolidateForField;
 import com.ryml.service.impl.NoumenonVolidateForField;
 import com.ryml.service.impl.ParentVolidateForFieldActuator;
+import com.ryml.service.impl.ValidateAnnotationActuator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class MyValidator {
         actuators.add(new ParentVolidateForFieldActuator());
     }
 
-    public static <T> ValidateResult validate(T object) throws IllegalAccessException, ClassNotFoundException {
+    public static ValidateResult validate(Object object) throws IllegalAccessException, ClassNotFoundException {
         if (object == null){
             throw new RuntimeException("object can not be null");
         }
@@ -36,6 +37,11 @@ public class MyValidator {
         for (MyVolidateForFieldActuator actuator : actuators) {
             actuator.validateProperties(validationContext);
         }
+
+        //create ValidateAnnotationActuator play validate
+        ValidateAnnotationActuator instance = ValidateAnnotationActuator.getInstance();
+        instance.validateProperties(validationContext);
+
         return validationContext.getValidateResult();
     }
 

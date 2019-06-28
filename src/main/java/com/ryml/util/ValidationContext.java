@@ -22,7 +22,7 @@ public class ValidationContext<T> {
     /**
      * 需要校验的对象
      */
-    private T object;
+    private Object object;
 
     public ValidateResult getValidateResult() {
         return validateResult;
@@ -32,11 +32,11 @@ public class ValidationContext<T> {
         this.validateResult = validateResult;
     }
 
-    public T getObject() {
+    public Object getObject() {
         return object;
     }
 
-    public void setObject(T object) {
+    public void setObject(Object object) {
         this.object = object;
     }
 

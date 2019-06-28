@@ -20,9 +20,7 @@ public class NoumenonVolidateForField implements MyVolidateForFieldActuator {
     @Override
     public void validateProperties(ValidationContext validationContext) throws IllegalAccessException {
         Object object = validationContext.getObject();
-        ValidateAnnotationActuator instance = ValidateAnnotationActuator.getInstance();
         validationContext.addClassList(object.getClass());
-        instance.validateProperties(validationContext);
     }
 
 }

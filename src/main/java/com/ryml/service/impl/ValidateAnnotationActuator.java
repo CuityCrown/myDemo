@@ -15,7 +15,6 @@ import java.util.List;
  * @version V1.0
  * @date 2019/6/28
  */
-@Service
 public class ValidateAnnotationActuator {
 
     private volatile static ValidateAnnotationActuator validateAnnotationActuator;

@@ -12,7 +12,7 @@ import java.util.List;
  * @version V1.0
  * @date 2019/6/27
  */
-@Data
+
 public class ValidateResult {
 
     private boolean result;
@@ -21,5 +21,21 @@ public class ValidateResult {
 
     public void addMessage(String message){
         this.messages.add(message);
+    }
+
+    public boolean isResult() {
+        return result;
+    }
+
+    public void setResult(boolean result) {
+        this.result = result;
+    }
+
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 }

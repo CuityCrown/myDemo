@@ -21,10 +21,8 @@ public class ValidateAnnotationActuator {
     private volatile static ValidateAnnotationActuator validateAnnotationActuator;
 
     public static ValidateAnnotationActuator getInstance(){
-        synchronized (validateAnnotationActuator){
-            if (validateAnnotationActuator == null){
-                validateAnnotationActuator = new ValidateAnnotationActuator();
-            }
+        if (validateAnnotationActuator == null){
+            validateAnnotationActuator = new ValidateAnnotationActuator();
         }
         return validateAnnotationActuator;
     }

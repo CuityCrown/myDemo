@@ -19,7 +19,7 @@ public class MyThreadPoolExectuor extends ThreadPoolExecutor{
      */
     private final AtomicInteger submittedTasksCount = new AtomicInteger();
 
-    public MyThreadPoolExectuor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,TaskThreadFactory taskThreadFactory,RejectedExecutionHandler rejectedExecutionHandler) {
+    MyThreadPoolExectuor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,TaskThreadFactory taskThreadFactory,RejectedExecutionHandler rejectedExecutionHandler) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, taskThreadFactory,rejectedExecutionHandler);
     }
 

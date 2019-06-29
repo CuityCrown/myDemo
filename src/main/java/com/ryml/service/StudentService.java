@@ -1,5 +1,6 @@
 package com.ryml.service;
 
+import com.ryml.entity.Menu;
 import com.ryml.entity.Student;
 
 import java.util.List;
@@ -18,5 +19,11 @@ public interface StudentService {
      * @return
      */
     public List<Student> getAll();
+
+    /**
+     * 获取按钮列表
+     * @return
+     */
+    public List<Menu> getAllMenu();
 
 }

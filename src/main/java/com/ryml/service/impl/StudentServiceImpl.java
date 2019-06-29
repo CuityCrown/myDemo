@@ -1,5 +1,6 @@
 package com.ryml.service.impl;
 
+import com.ryml.entity.Menu;
 import com.ryml.entity.Student;
 import com.ryml.mapper.StudentMapper;
 import com.ryml.service.StudentService;
@@ -25,5 +26,10 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public List<Student> getAll() {
         return studentMapper.getAll();
+    }
+
+    @Override
+    public List<Menu> getAllMenu() {
+        return studentMapper.getAllMenu();
     }
 }

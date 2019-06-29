@@ -7,4 +7,39 @@
     </select>
 
 
+    <resultMap id="menuMap" type="com.ryml.entity.Menu">
+        <result column="t1.id" property="id"></result>
+        <result column="t1.name" property="name"></result>
+        <result column="t1.parentId" property="parentId"></result>
+        <collection property="childrenMenus" javaType="com.ryml.entity.Menu">
+            <result column="t2.id" property="id"></result>
+            <result column="t2.name" property="name"></result>
+            <result column="t2.parentId" property="parentId"></result>
+            <collection property="childrenMenus" javaType="com.ryml.entity.Menu">
+                <result column="t3.id" property="id"></result>
+                <result column="t3.name" property="name"></result>
+                <result column="t3.parentId" property="parentId"></result>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id = "getAllMenu" resultMap="menuMap">
+        SELECT
+            m1.id,
+            m1. NAME,
+            m1.parent_id,
+            m2.id,
+            m2. NAME,
+            m2.parent_id,
+            m3.id,
+            m3. NAME,
+            m3.parent_id
+        FROM
+            menu m1
+        INNER JOIN menu m2
+        ON m1.id = m2.parent_id
+        LEFT JOIN menu m3
+        ON m2.id = m3.parent_id
+    </select>
+
 </mapper>

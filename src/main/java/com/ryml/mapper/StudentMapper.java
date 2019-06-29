@@ -1,5 +1,6 @@
 package com.ryml.mapper;
 
+import com.ryml.entity.Menu;
 import com.ryml.entity.Student;
 
 import java.util.List;
@@ -14,5 +15,7 @@ import java.util.List;
 public interface StudentMapper {
 
     public List<Student> getAll();
+
+    public List<Menu> getAllMenu();
 
 }

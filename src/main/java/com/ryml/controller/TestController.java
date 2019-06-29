@@ -29,4 +29,10 @@ public class TestController {
         return studentService.getAll();
     }
 
+    @RequestMapping("/getMenu")
+    @ResponseBody
+    public List<Student> getMenu(){
+        return studentService.getAll();
+    }
+
 }

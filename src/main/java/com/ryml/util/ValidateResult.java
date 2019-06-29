@@ -2,6 +2,7 @@ package com.ryml.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * description:
@@ -31,6 +32,13 @@ public class ValidateResult {
 
     public List<String> getMessages() {
         return messages;
+    }
+
+    public static void main(String[] args) {
+        AtomicInteger atomicInteger = new AtomicInteger();
+        atomicInteger.incrementAndGet();
+
+        System.out.println(atomicInteger.intValue());
     }
 
 }

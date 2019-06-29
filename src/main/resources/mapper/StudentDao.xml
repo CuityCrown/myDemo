@@ -23,7 +23,7 @@
         </collection>
     </resultMap>
 
-    <select id = "getAllMenu" resultMap="menuMap">
+    <select id = "getMenu" resultMap="menuMap">
         SELECT
             m1.id,
             m1. NAME,

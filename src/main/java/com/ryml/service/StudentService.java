@@ -24,6 +24,6 @@ public interface StudentService {
      * 获取按钮列表
      * @return
      */
-    public List<Menu> getAllMenu();
+    public List<Menu> getMenu();
 
 }

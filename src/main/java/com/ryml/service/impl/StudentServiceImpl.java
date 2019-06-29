@@ -29,7 +29,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public List<Menu> getAllMenu() {
-        return studentMapper.getAllMenu();
+    public List<Menu> getMenu() {
+        return studentMapper.getMenu();
     }
 }

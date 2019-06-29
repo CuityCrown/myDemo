@@ -16,6 +16,6 @@ public interface StudentMapper {
 
     public List<Student> getAll();
 
-    public List<Menu> getAllMenu();
+    public List<Menu> getMenu();
 
 }

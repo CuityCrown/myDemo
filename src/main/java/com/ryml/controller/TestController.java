@@ -1,5 +1,6 @@
 package com.ryml.controller;
 
+import com.ryml.entity.Menu;
 import com.ryml.entity.Student;
 import com.ryml.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class TestController {
 
     @RequestMapping("/getMenu")
     @ResponseBody
-    public List<Student> getMenu(){
-        return studentService.getAll();
+    public List<Menu> getMenu(){
+        return studentService.getMenu();
     }
 
 }

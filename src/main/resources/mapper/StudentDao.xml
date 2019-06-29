@@ -7,36 +7,36 @@
     </select>
 
     <resultMap id="menuMap" type="com.ryml.entity.Menu">
-        <result column="m1.id" property="id"></result>
-        <result column="m1.name" property="name"></result>
-        <collection property="childrenMenus" javaType="com.ryml.entity.Menu">
-            <result column="m2.id" property="id"></result>
-            <result column="m2.name" property="name"></result>
-            <result column="m2.parentId" property="parentId"></result>
-            <collection property="childrenMenus" javaType="com.ryml.entity.Menu">
-                <result column="m3.id" property="id"></result>
-                <result column="m3.name" property="name"></result>
-                <result column="m3.parentId" property="parentId"></result>
+        <result column="m1Id" property="id"/>
+        <result column="m1Name" property="name"/>
+        <collection property="childrenMenus" ofType="com.ryml.entity.Menu">
+            <result column="m2Id" property="id"/>
+            <result column="m2Name" property="name"/>
+            <result column="m2ParentId" property="parentId"/>
+            <collection property="childrenMenus" ofType="com.ryml.entity.Menu">
+                <result column="m3Id" property="id"/>
+                <result column="m3Name" property="name"/>
+                <result column="m3ParentId" property="parentId"/>
             </collection>
         </collection>
     </resultMap>
 
     <select id = "getMenu" resultMap="menuMap">
-        SELECT
-            m1.id,
-            m1. NAME,
-            m1.parent_id,
-            m2.id,
-            m2. NAME,
-            m2.parent_id,
-            m3.id,
-            m3. NAME,
-            m3.parent_id
+         SELECT
+            m1.id as m1Id,
+            m1.name as m1Name,
+            m1.parent_id as m1ParentId,
+            m2.id as m2Id,
+            m2.name as m2Name,
+            m2.parent_id as m2ParentId,
+            m3.id as m3Id,
+            m3.name as m3Name,
+            m3.parent_id as m3ParentId
         FROM
             menu m1
         INNER JOIN menu m2
         ON m1.id = m2.parent_id
-        LEFT JOIN menu m3
+        INNER JOIN menu m3
         ON m2.id = m3.parent_id
     </select>
 

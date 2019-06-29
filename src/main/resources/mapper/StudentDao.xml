@@ -6,19 +6,17 @@
       SELECT * FROM student
     </select>
 
-
     <resultMap id="menuMap" type="com.ryml.entity.Menu">
-        <result column="t1.id" property="id"></result>
-        <result column="t1.name" property="name"></result>
-        <result column="t1.parentId" property="parentId"></result>
+        <result column="m1.id" property="id"></result>
+        <result column="m1.name" property="name"></result>
         <collection property="childrenMenus" javaType="com.ryml.entity.Menu">
-            <result column="t2.id" property="id"></result>
-            <result column="t2.name" property="name"></result>
-            <result column="t2.parentId" property="parentId"></result>
+            <result column="m2.id" property="id"></result>
+            <result column="m2.name" property="name"></result>
+            <result column="m2.parentId" property="parentId"></result>
             <collection property="childrenMenus" javaType="com.ryml.entity.Menu">
-                <result column="t3.id" property="id"></result>
-                <result column="t3.name" property="name"></result>
-                <result column="t3.parentId" property="parentId"></result>
+                <result column="m3.id" property="id"></result>
+                <result column="m3.name" property="name"></result>
+                <result column="m3.parentId" property="parentId"></result>
             </collection>
         </collection>
     </resultMap>

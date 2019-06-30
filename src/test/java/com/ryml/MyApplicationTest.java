@@ -9,6 +9,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * description:
  *
@@ -28,13 +30,12 @@ public class MyApplicationTest {
         ValueOperations<String, Integer> stringIntegerValueOperations = redisTemplate.opsForValue();
         stringIntegerValueOperations.set(RedisCommonEnum.STUDENT.getValue(),1234123);
         System.out.println("测试======"+stringIntegerValueOperations.get(RedisCommonEnum.STUDENT.getValue()));
+    }
+
+    @Test
+    public void test1(){
 
     }
 
 }
 
-class MyTest{
-    public static void main(String[] args) {
-
-    }
-}

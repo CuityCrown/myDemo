@@ -33,8 +33,29 @@ public class MyApplicationTest {
     }
 
     @Test
-    public void test1(){
+    public void test1() throws InterruptedException {
+        ValueOperations<Integer,Integer> valueOperations = redisTemplate.opsForValue();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                valueOperations.set(1,1,30000,TimeUnit.SECONDS);
+                Integer integer = valueOperations.get(1);
+                System.out.println(integer+"我是线程1");
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Integer integer = valueOperations.get(1);
+                System.out.println(integer+"我是线程2");
+                if (integer != null){
+                    System.out.println("我没有获取到锁");
+                }
+            }
+        }).start();
 
+        Thread.sleep(10000);
+        System.out.println("主线程结束");
     }
 
 }

@@ -1,6 +1,8 @@
 package com.ryml;
 
 import com.ryml.enums.RedisCommonEnum;
+import org.apache.curator.CuratorZookeeperClient;
+import org.apache.zookeeper.ZooKeeper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class MyApplicationTest {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private CuratorZookeeperClient curatorZookeeperClient;
 
     @Test
     public void test(){
@@ -56,6 +61,15 @@ public class MyApplicationTest {
 
         Thread.sleep(10000);
         System.out.println("主线程结束");
+    }
+
+    @Test
+    public void test2() throws Exception {
+        ZooKeeper zooKeeper = curatorZookeeperClient.getZooKeeper();
+        long sessionId = zooKeeper.getSessionId();
+        int sessionTimeout = zooKeeper.getSessionTimeout();
+        zooKeeper.create("/data","http://localhost:8094/student/getMenu".getBytes(),null,null);
+
     }
 
 }

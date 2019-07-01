@@ -3,6 +3,7 @@ package com.ryml;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.zookeeper.CreateMode;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -89,11 +90,22 @@ public class MyApplicationTest {
         }
         final PathChildrenCache cache = new PathChildrenCache(curatorFramework, keyPath, false);
         cache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
-        cache.getListenable().addListener((client, event) -> {
+        cache.getListenable().addListener(new PathChildrenCacheListener() {
+            @Override
+            public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
+
+            }
+        });
+    }
+
+    public void test() throws Exception {
+        final PathChildrenCache cache = new PathChildrenCache(curatorFramework,"",false);
+        cache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
+        cache.getListenable().addListener((client,event)->{
             if (event.getType().equals(PathChildrenCacheEvent.Type.CHILD_REMOVED)) {
                 String oldPath = event.getData().getPath();
                 logger.info("success to release lock for path:{}", oldPath);
-                if (oldPath.contains(path)) {
+                if (oldPath.contains("")) {
                     //释放计数器，让当前的请求获取锁
                     countDownLatch.countDown();
                 }
@@ -101,5 +113,21 @@ public class MyApplicationTest {
         });
     }
 
+    public void afterPropertiesSet() {
+        curatorFramework = curatorFramework.usingNamespace("lock-namespace");
+        String path = "/" + ROOT_PATH_LOCK;
+        try {
+            if (curatorFramework.checkExists().forPath(path) == null) {
+                curatorFramework.create()
+                        .creatingParentsIfNeeded()
+                        .withMode(CreateMode.PERSISTENT)
+                        .forPath(path);
+            }
+            addWatcher(ROOT_PATH_LOCK);
+            logger.info("root path 的 watcher 事件创建成功");
+        } catch (Exception e) {
+            logger.error("connect zookeeper fail，please check the log >> {}", e.getMessage(), e);
+        }
+    }
 }
 

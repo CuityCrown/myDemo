@@ -1,7 +1,6 @@
 package com.ryml;
 
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.api.CreateBuilder;
 import org.apache.zookeeper.CreateMode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +23,6 @@ public class ZkApplicationTest {
 
     @Autowired
     private CuratorFramework curatorFramework;
-
-
 
     @Test
     public void testZkCreate() throws Exception {

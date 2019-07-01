@@ -18,12 +18,7 @@ public class MyTest {
 
     public static void main(String[] args) throws InterruptedException {
         final MyThreadPoolExectuor myThreadPoolExectuor = new MyThreadPoolExectuor(10, 20, 3000, TimeUnit.MINUTES,
-                new LinkedBlockingQueue<Runnable>(), new TaskThreadFactory("1", true, 1), new RejectedExecutionHandler() {
-            @Override
-            public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-
-            }
-        });
+                new LinkedBlockingQueue<Runnable>(), new TaskThreadFactory("1", true, 1));
 
         myThreadPoolExectuor.execute(new Runnable() {
             @Override

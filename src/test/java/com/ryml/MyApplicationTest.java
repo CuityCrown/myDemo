@@ -77,7 +77,6 @@ public class MyApplicationTest {
         System.out.println(sessionId+"测试sessionId");
         System.out.println(sessionId+"测试sessionTimeout");
         zooKeeper.create("/data","http://localhost:8094/student/getMenu".getBytes(),null, CreateMode.EPHEMERAL);
-
     }
 
     @Test

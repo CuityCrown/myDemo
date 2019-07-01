@@ -1,13 +1,7 @@
 package com.ryml;
 
 import com.ryml.enums.RedisCommonEnum;
-import com.ryml.util.MyTest;
-import org.apache.curator.CuratorZookeeperClient;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.api.CreateBuilder;
-import org.apache.curator.framework.api.CreateBuilder2;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.ZooKeeper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +68,11 @@ public class MyApplicationTest {
 
     @Test
     public void test2() throws Exception {
-        CreateBuilder createBuilder = curatorFramework.create();
+/*        String s = curatorFramework.create().creatingParentContainersIfNeeded().withMode(CreateMode.PERSISTENT).
+                forPath("/data", "https://www.cnblogs.com/yjmyzz/p/zookeeper-acl-demo.html".getBytes());
+        System.out.println(s);*/
+        byte[] bytes = curatorFramework.getData().forPath("/data");
+        System.out.println(new String(bytes));
     }
 
     @Test

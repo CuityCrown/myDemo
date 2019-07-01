@@ -1,6 +1,8 @@
 package com.ryml.config.zookeeper;
 
 import org.apache.curator.CuratorZookeeperClient;
+import org.apache.curator.RetryPolicy;
+import org.apache.curator.RetrySleeper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +33,14 @@ public class ZookeeperConfiguration {
     private Integer connectionTimeoutMs;
 
     @Bean
-    public CuratorZookeeperClient testCurator(){
-        CuratorZookeeperClient curatorZookeeperClient = new CuratorZookeeperClient(coonectString, connectionTimeoutMs,sessionTimeoutMs,null,null);
+    public CuratorZookeeperClient testCurator() throws Exception {
+        CuratorZookeeperClient curatorZookeeperClient = new CuratorZookeeperClient(coonectString, connectionTimeoutMs, sessionTimeoutMs, null, new RetryPolicy() {
+            @Override
+            public boolean allowRetry(int i, long l, RetrySleeper retrySleeper) {
+                return false;
+            }
+        });
+        curatorZookeeperClient.start();
         return curatorZookeeperClient;
     }
 

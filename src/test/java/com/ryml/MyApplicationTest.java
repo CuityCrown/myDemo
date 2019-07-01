@@ -1,7 +1,9 @@
 package com.ryml;
 
 import com.ryml.enums.RedisCommonEnum;
+import com.ryml.util.MyTest;
 import org.apache.curator.CuratorZookeeperClient;
+import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooKeeper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +13,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * description:
@@ -68,8 +74,29 @@ public class MyApplicationTest {
         ZooKeeper zooKeeper = curatorZookeeperClient.getZooKeeper();
         long sessionId = zooKeeper.getSessionId();
         int sessionTimeout = zooKeeper.getSessionTimeout();
-        zooKeeper.create("/data","http://localhost:8094/student/getMenu".getBytes(),null,null);
+        System.out.println(sessionId+"测试sessionId");
+        System.out.println(sessionId+"测试sessionTimeout");
+        zooKeeper.create("/data","http://localhost:8094/student/getMenu".getBytes(),null, CreateMode.EPHEMERAL);
 
+    }
+
+    @Test
+    public void test4() throws Exception {
+        ZooKeeper zooKeeper = curatorZookeeperClient.getZooKeeper();
+        byte[] data = zooKeeper.getData("/data", null, null);
+        System.out.println(data.toString());
+    }
+
+    @Test
+    public void test3() {
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        Stream<Integer> stream = integers.stream();
+        List<Integer> collect = stream.filter(MyApplicationTest::add).collect(Collectors.toList());
+        System.out.println(collect);
+    }
+
+    public static boolean add(Integer i){
+        return i == 1;
     }
 
 }

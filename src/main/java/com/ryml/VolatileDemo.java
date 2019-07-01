@@ -1,6 +1,6 @@
 package com.ryml;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.lang.management.ManagementFactory;
 import java.util.concurrent.TimeUnit;

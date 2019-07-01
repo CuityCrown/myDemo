@@ -1,16 +1,11 @@
 package com.ryml.util;
 
 import org.apache.tomcat.util.threads.TaskThreadFactory;
-import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * description:
@@ -39,18 +34,6 @@ public class MyTest {
 
         Thread.sleep(3000);
         System.out.println(myThreadPoolExectuor.getSubmittedTasksCount());
-    }
-
-    @Test
-    public  void test() {
-        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        Stream<Integer> stream = integers.stream();
-        List<Integer> collect = stream.filter(MyTest::add).collect(Collectors.toList());
-        System.out.println(collect);
-    }
-
-    public static boolean add(Integer i){
-        return i == 1;
     }
 
 }

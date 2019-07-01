@@ -3,6 +3,9 @@ package com.ryml;
 import com.ryml.enums.RedisCommonEnum;
 import com.ryml.util.MyTest;
 import org.apache.curator.CuratorZookeeperClient;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.api.CreateBuilder;
+import org.apache.curator.framework.api.CreateBuilder2;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooKeeper;
 import org.junit.Test;
@@ -34,7 +37,7 @@ public class MyApplicationTest {
     private RedisTemplate redisTemplate;
 
     @Autowired
-    private CuratorZookeeperClient curatorZookeeperClient;
+    private CuratorFramework curatorFramework;
 
     @Test
     public void test(){
@@ -71,19 +74,7 @@ public class MyApplicationTest {
 
     @Test
     public void test2() throws Exception {
-        ZooKeeper zooKeeper = curatorZookeeperClient.getZooKeeper();
-        long sessionId = zooKeeper.getSessionId();
-        int sessionTimeout = zooKeeper.getSessionTimeout();
-        System.out.println(sessionId+"测试sessionId");
-        System.out.println(sessionId+"测试sessionTimeout");
-        zooKeeper.create("/data","http://localhost:8094/student/getMenu".getBytes(),null, CreateMode.EPHEMERAL);
-    }
-
-    @Test
-    public void test4() throws Exception {
-        ZooKeeper zooKeeper = curatorZookeeperClient.getZooKeeper();
-        byte[] data = zooKeeper.getData("/data", null, null);
-        System.out.println(data.toString());
+        CreateBuilder createBuilder = curatorFramework.create();
     }
 
     @Test

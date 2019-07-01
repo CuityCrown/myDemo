@@ -1,12 +1,15 @@
 package com.ryml;
 
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.api.CreateBuilder;
 import org.apache.zookeeper.CreateMode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * description:zookeeper测试类
@@ -22,13 +25,13 @@ public class ZkApplicationTest {
     @Autowired
     private CuratorFramework curatorFramework;
 
+
+
     @Test
     public void testZkCreate() throws Exception {
         String s = curatorFramework.create().creatingParentContainersIfNeeded().withMode(CreateMode.PERSISTENT).
                 forPath("/data", "https://www.cnblogs.com/yjmyzz/p/zookeeper-acl-demo.html".getBytes());
         System.out.println(s);
-        byte[] bytes = curatorFramework.getData().forPath("/data");
-
     }
 
     @Test
@@ -36,5 +39,12 @@ public class ZkApplicationTest {
         byte[] bytes = curatorFramework.getData().forPath("/data");
         System.out.println(new String(bytes));
     }
+
+    @Test
+    public void testGetChildren() throws Exception {
+        List<String> childes = curatorFramework.getChildren().forPath("/data");
+        System.out.println(childes);
+    }
+
 
 }

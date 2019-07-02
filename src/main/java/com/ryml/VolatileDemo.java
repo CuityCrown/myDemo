@@ -3,6 +3,7 @@ package com.ryml;
 import org.junit.Test;
 
 import java.lang.management.ManagementFactory;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 
@@ -12,7 +13,7 @@ public class VolatileDemo {
     private static  boolean isStop = false;
 
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         new Thread(() -> {
             System.out.println("出狱倒计时");
             try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -22,7 +23,7 @@ public class VolatileDemo {
         while (!isStop) {
 
         }
-    }
+    }*/
 
     @Test
     public void test(){
@@ -36,5 +37,22 @@ public class VolatileDemo {
         System.out.println(thresholdSize);
     }
 
+    public static void main(String[] args) throws InterruptedException {
+        CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
+
+        for (int i = 0; i < 30; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    list.add(1);
+                    list.get(0);
+                    list.remove(0);
+                    list.set(1,1);
+                }
+            }).start();
+        }
+        Thread.sleep(10000);
+        System.out.println(list+"测试"+list.size());
+    }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,13 @@ public class TestController {
     @ResponseBody
     public List<Menu> getMenu(){
         return studentService.getMenu();
+    }
+
+    @RequestMapping("/testDateFormat")
+    @ResponseBody
+    public Date test1(Date date){
+        System.out.println(date);
+        return date;
     }
 
 }

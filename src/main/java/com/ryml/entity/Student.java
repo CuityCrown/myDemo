@@ -23,6 +23,8 @@ public class Student extends MyStudent implements Serializable{
 
     private Integer age;
 
-    private Date date;
+    private Date myTime;
+
+    private String myTest;
 
 }

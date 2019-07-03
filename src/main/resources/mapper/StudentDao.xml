@@ -40,4 +40,8 @@
         ON m2.id = m3.parent_id
     </select>
 
+    <insert id="insert" parameterType="com.ryml.entity.Student">
+      INSERT INTO student values(id,`name`,age,`date`)
+    </insert>
+
 </mapper>

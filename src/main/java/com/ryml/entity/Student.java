@@ -4,6 +4,7 @@ import com.ryml.annotation.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * description:
@@ -21,5 +22,7 @@ public class Student extends MyStudent implements Serializable{
     private String name;
 
     private Integer age;
+
+    private Date date;
 
 }

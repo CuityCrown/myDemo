@@ -32,4 +32,9 @@ public class StudentServiceImpl implements StudentService{
     public List<Menu> getMenu() {
         return studentMapper.getMenu();
     }
+
+    @Override
+    public void insert(Student student) {
+        studentMapper.insert(student);
+    }
 }

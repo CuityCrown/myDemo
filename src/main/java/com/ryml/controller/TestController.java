@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +38,16 @@ public class TestController {
     @ResponseBody
     public List<Menu> getMenu(){
         return studentService.getMenu();
+    }
+
+    @RequestMapping("/test")
+    public void test(){
+        Student student = new Student();
+        student.setId(1);
+        student.setName("测试");
+        student.setAge(123);
+        student.setDate(new Date());
+        studentService.insert(student);
     }
 
 }

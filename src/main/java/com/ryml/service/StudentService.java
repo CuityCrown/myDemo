@@ -26,4 +26,5 @@ public interface StudentService {
      */
     public List<Menu> getMenu();
 
+    void insert(Student student);
 }

@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,6 +39,13 @@ public class TestController {
     @ResponseBody
     public List<Menu> getMenu(){
         return studentService.getMenu();
+    }
+
+    @RequestMapping("/testDateFormat")
+    @ResponseBody
+    public Date test1(Date date){
+        System.out.println(date);
+        return date;
     }
 
     @RequestMapping("/test")

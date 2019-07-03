@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * description:
@@ -129,5 +132,6 @@ public class MyApplicationTest {
             logger.error("connect zookeeper fail，please check the log >> {}", e.getMessage(), e);
         }
     }
+
 }
 

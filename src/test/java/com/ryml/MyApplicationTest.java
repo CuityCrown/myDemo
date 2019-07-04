@@ -1,10 +1,14 @@
 package com.ryml;
 
+import com.ryml.controller.TestController;
+import com.ryml.util.MyApplicationContextUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.zookeeper.CreateMode;
+import org.checkerframework.checker.units.qual.A;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +39,9 @@ public class MyApplicationTest {
 
     @Autowired
     private CuratorFramework curatorFramework;
+
+    @Autowired
+    private TestController testController;
 
     /**
      * 获取分布式锁
@@ -131,6 +138,14 @@ public class MyApplicationTest {
         } catch (Exception e) {
             logger.error("connect zookeeper fail，please check the log >> {}", e.getMessage(), e);
         }
+    }
+
+    @Test
+    public void test1(){
+        Object testController = MyApplicationContextUtils.getBean("testController");
+        System.out.println(this.testController);
+        System.out.println(testController);
+        System.out.println(testController == testController);
     }
 
 }

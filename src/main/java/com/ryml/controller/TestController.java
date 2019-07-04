@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Date;
 import java.util.List;
 
@@ -63,6 +61,14 @@ public class TestController {
             System.out.println(e);
         }
 
+    }
+
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = simpleDateFormat.parse("2017-02-16");
+        Date parse1 = simpleDateFormat.parse("2017-02-15");
+        boolean before = parse.after(parse1);
+        System.out.println(before);
     }
 
 }

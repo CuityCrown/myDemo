@@ -1,8 +1,6 @@
 package com.ryml.util;
 
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,14 +11,9 @@ import org.springframework.stereotype.Service;
  * @date 2019/7/4
  */
 @Service
-public class MyApplicationContextUtils implements ApplicationContextAware{
+public class MyApplicationContextUtils{
 
     private static ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        test(applicationContext);
-    }
 
     public static void test(ApplicationContext applicationContext){
         MyApplicationContextUtils.applicationContext = applicationContext;

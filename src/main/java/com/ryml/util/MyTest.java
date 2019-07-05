@@ -1,6 +1,7 @@
 package com.ryml.util;
 
 import org.apache.tomcat.util.threads.TaskThreadFactory;
+import org.junit.Test;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -38,22 +39,33 @@ public class MyTest {
     }*/
 
     public static void main(String[] args) throws ParseException {
-        System.out.println("v_1_0".substring(2,3));
+        String versionNow = "v_20_20";
+        String s = addVersionNumber(versionNow);
+        System.out.println(s);
     }
 
-    public static String getDateLastDay(String year, String month) {
+    private static String addVersionNumber(String versionNow){
+        StringBuilder stringBuilder = new StringBuilder("");
 
-        //year="2018" month="2"
-        Calendar calendar = Calendar.getInstance();
-        // 设置时间,当前时间不用设置
-        calendar.set(Calendar.YEAR, Integer.parseInt(year));
-        calendar.set(Calendar.MONTH, Integer.parseInt(month));
+        //拿到需要截取父级版本号的结尾下标和子级版本号的开头下标
+        int i = versionNow.lastIndexOf("_");
 
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
-        return format.format(calendar.getTime());
+        //截取子级版本号并+1
+        String subNumber = versionNow.substring(i+1,versionNow.length());
+        Integer subNumberInteger = Integer.valueOf(subNumber)+1;
+
+        //截取父级版本号
+        String faNumber = versionNow.substring(2,i);
+        Integer faNumberInteger = Integer.valueOf(faNumber);
+
+        //如果子级版本号大于20父级版本号+1
+        if (subNumberInteger > 20){
+            stringBuilder.append("v_").append((faNumberInteger+1)).append("_0");
+        }else{
+            //否则子级版本号+1父级版本号不做改变
+            stringBuilder.append("v_").append(faNumberInteger).append("_").append(subNumberInteger);
+        }
+        return stringBuilder.toString();
     }
-
 
 }

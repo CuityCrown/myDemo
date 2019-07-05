@@ -38,7 +38,7 @@ public class MyTest {
     }*/
 
     public static void main(String[] args) throws ParseException {
-        System.out.println();
+        System.out.println("v_1_0".substring(2,3));
     }
 
     public static String getDateLastDay(String year, String month) {

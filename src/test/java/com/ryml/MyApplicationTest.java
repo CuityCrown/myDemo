@@ -148,5 +148,26 @@ public class MyApplicationTest {
         System.out.println(testController == testController);
     }
 
+    @Test
+    public void test3(){
+        String versionNow = "v_1_20";
+        String s = addVersionNumber(versionNow);
+        System.out.println(s);
+    }
+
+    private String addVersionNumber(String versionNow){
+        StringBuffer stringBuffer = new StringBuffer("");
+        String subNumber = versionNow.substring(4,versionNow.length());
+        Integer subNumberInteger = Integer.valueOf(subNumber)+1;
+        String faNumber = versionNow.substring(2,3);
+        Integer faNumberInteger = Integer.valueOf(faNumber);
+        if (subNumberInteger > 20){
+            stringBuffer.append("v_").append((faNumberInteger+1)).append("_0");
+        }else{
+            stringBuffer.append("v_").append(faNumberInteger).append("_").append(subNumberInteger);
+        }
+        return stringBuffer.toString();
+    }
+
 }
 

@@ -20,7 +20,9 @@ import java.util.concurrent.TimeUnit;
  * @version V1.0
  * @date 2019/6/29
  */
-public class MyTest {
+public class MyTest<T> {
+
+    private T re;
 
 /*    public static void main(String[] args) throws InterruptedException {
         final MyThreadPoolExectuor myThreadPoolExectuor = new MyThreadPoolExectuor(10, 20, 3000, TimeUnit.MINUTES,
@@ -68,4 +70,18 @@ public class MyTest {
         return stringBuilder.toString();
     }
 
+    public T getRe() {
+        return re;
+    }
+
+    public void setRe(T re) {
+        this.re = re;
+    }
+
+    @Override
+    public String toString() {
+        return "MyTest{" +
+                "re=" + re +
+                '}';
+    }
 }

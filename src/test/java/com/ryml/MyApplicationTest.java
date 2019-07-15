@@ -1,6 +1,8 @@
 package com.ryml;
 
+import com.google.common.collect.Lists;
 import com.ryml.controller.TestController;
+import com.ryml.util.Dog;
 import com.ryml.util.MyApplicationContextUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
@@ -16,7 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.groups.Default;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -140,12 +147,35 @@ public class MyApplicationTest {
         }
     }
 
+    @Autowired
+    private MyApplicationContextUtils myApplicationContextUtils;
+
     @Test
     public void test1(){
-        Object testController = MyApplicationContextUtils.getBean("testController");
-        System.out.println(this.testController);
-        System.out.println(testController);
-        System.out.println(testController == testController);
+        System.out.println(myApplicationContextUtils.test());
+    }
+
+    @Test
+    public void test2() {
+        validate(Dog.builder()
+                .id(1)
+                .ammount(240D)
+                .gender(false)
+                .integers(Lists.newArrayList(1,2,3))
+                .name("王屁呆")
+                .phoneNum("15603908486")
+                .build());
+    }
+
+    private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+    private void validate(Dog dog) {
+        Set<ConstraintViolation<Dog>> validate = validator.validate(dog,Default.class);
+        for (ConstraintViolation<Dog> dogConstraintViolation : validate) {
+            String message = dogConstraintViolation.getMessage();
+            System.out.println(message);
+        }
+
     }
 
 }

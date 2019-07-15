@@ -3,6 +3,7 @@ package com.ryml;
 import org.junit.Test;
 
 import java.lang.management.ManagementFactory;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +37,7 @@ public class VolatileDemo {
         System.out.println(size);
         System.out.println(thresholdSize);
     }
-
+/*
     public static void main(String[] args) throws InterruptedException {
         CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
 
@@ -53,6 +54,14 @@ public class VolatileDemo {
         }
         Thread.sleep(10000);
         System.out.println(list+"测试"+list.size());
+    }*/
+
+
+    public static void main(String[] args) {
+        Long l = 11L;
+        Integer i = 11;
+
+        System.out.println(Objects.equals(Integer.valueOf(l.intValue()),i));
     }
 
 }

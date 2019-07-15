@@ -1,6 +1,8 @@
 package com.ryml.util;
 
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
@@ -13,17 +15,13 @@ import org.springframework.stereotype.Service;
  * @date 2019/7/4
  */
 @Service
-public class MyApplicationContextUtils implements ApplicationContextAware{
+public class MyApplicationContextUtils{
 
-    private static ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        MyApplicationContextUtils.applicationContext = applicationContext;
-    }
-
-    public static Object getBean(String beanName){
-        return applicationContext.getBean(beanName);
+    public Object test(){
+        return applicationContext.getBean("myApplicationContextUtils");
     }
 }
 

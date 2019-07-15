@@ -9,7 +9,6 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.zookeeper.CreateMode;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,11 +21,10 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * description:
@@ -110,6 +108,7 @@ public class MyApplicationTest {
         cache.getListenable().addListener(new PathChildrenCacheListener() {
             @Override
             public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
+                curatorFramework.delete().deletingChildrenIfNeeded().forPath(keyPath);
 
             }
         });
@@ -170,12 +169,13 @@ public class MyApplicationTest {
     private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     private void validate(Dog dog) {
+        Map map = new ConcurrentHashMap();
+        map.put(11,1);
         Set<ConstraintViolation<Dog>> validate = validator.validate(dog,Default.class);
         for (ConstraintViolation<Dog> dogConstraintViolation : validate) {
             String message = dogConstraintViolation.getMessage();
             System.out.println(message);
         }
-
     }
 
 }

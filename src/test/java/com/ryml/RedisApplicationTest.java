@@ -34,8 +34,11 @@ public class RedisApplicationTest {
 
     @Test
     public void testTransaction(){
+        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
         redisTemplate.multi();
-
+        valueOperations.set("name","张三");
+        valueOperations.set("age",18);
+        valueOperations.set("sex","男");
         redisTemplate.exec();
     }
 

@@ -33,6 +33,13 @@ public class RedisApplicationTest {
     }
 
     @Test
+    public void testTransaction(){
+        redisTemplate.multi();
+
+        redisTemplate.exec();
+    }
+
+    @Test
     public void test1() throws InterruptedException {
         ValueOperations<Integer,Integer> valueOperations = redisTemplate.opsForValue();
         new Thread(new Runnable() {

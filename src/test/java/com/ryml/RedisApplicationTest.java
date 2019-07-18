@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -77,6 +78,8 @@ public class RedisApplicationTest {
 }
 class woshi{
     public static void main(String[] args) throws IOException {
+        Jedis jedis = new Jedis();
+        jedis.get("1");
         ServerSocket server = new ServerSocket(6379);
         Socket socket = server.accept();
         byte[] chars = new byte[64];
@@ -86,21 +89,54 @@ class woshi{
 }
 class nicai{
     public static void main(String[] args) throws IOException {
-        Jedis jedis = new Jedis();
-        jedis.set("","");
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress("localhost",6379),1000);
+        socket.connect(new InetSocketAddress("localhost",6379));
         OutputStream outputStream = socket.getOutputStream();
-        outputStream.write("*3".getBytes());
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("*3").append("\r\n");
         //命令
-        outputStream.write("$3".getBytes());
-        outputStream.write("SET".getBytes());
+        stringBuffer.append("$3").append("\r\n");
+        stringBuffer.append("SET").append("\r\n");
         //key
-        outputStream.write("$1".getBytes());
-        outputStream.write("1".getBytes());
+        stringBuffer.append("$1").append("\r\n");
+        stringBuffer.append("1").append("\r\n");
         //value
-        outputStream.write("$6".getBytes());
-        outputStream.write("测试".getBytes());
+        stringBuffer.append("$6").append("\r\n");
+        stringBuffer.append("你猜啊").append("\r\n");
+        outputStream.write(stringBuffer.toString().getBytes());
         outputStream.flush();
+        outputStream.close();
+        socket.close();
+    }
+}
+class read{
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket();
+        socket.connect(new InetSocketAddress("localhost",6379));
+        OutputStream outputStream = socket.getOutputStream();
+        InputStream inputStream = socket.getInputStream();
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("*2").append("\r\n");
+        //命令
+        stringBuffer.append("$3").append("\r\n");
+        stringBuffer.append("GET").append("\r\n");
+        //key
+        stringBuffer.append("$1").append("\r\n");
+        stringBuffer.append("1").append("\r\n");
+        outputStream.write(stringBuffer.toString().getBytes());
+        byte[] b = new byte[4096];
+        inputStream.read(b);
+        System.out.println(new String(b));
+        outputStream.flush();
+        outputStream.close();
+        inputStream.close();
+        socket.close();
+    }
+}
+class testJedis{
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis("localhost",6379);
+        String s = jedis.get("1");
+        System.out.println(s);
     }
 }

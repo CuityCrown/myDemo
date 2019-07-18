@@ -78,9 +78,7 @@ public class RedisApplicationTest {
 }
 class woshi{
     public static void main(String[] args) throws IOException {
-        Jedis jedis = new Jedis();
-        jedis.get("1");
-        ServerSocket server = new ServerSocket(6379);
+        ServerSocket server = new ServerSocket(6380);
         Socket socket = server.accept();
         byte[] chars = new byte[64];
         socket.getInputStream().read(chars);
@@ -93,6 +91,7 @@ class nicai{
         socket.connect(new InetSocketAddress("localhost",6379));
         OutputStream outputStream = socket.getOutputStream();
         StringBuffer stringBuffer = new StringBuffer();
+        String value = "你猜啊啊啊啊";
         stringBuffer.append("*3").append("\r\n");
         //命令
         stringBuffer.append("$3").append("\r\n");
@@ -101,8 +100,8 @@ class nicai{
         stringBuffer.append("$1").append("\r\n");
         stringBuffer.append("1").append("\r\n");
         //value
-        stringBuffer.append("$6").append("\r\n");
-        stringBuffer.append("你猜啊").append("\r\n");
+        stringBuffer.append("$").append(value.getBytes().length).append("\r\n");
+        stringBuffer.append(value).append("\r\n");
         outputStream.write(stringBuffer.toString().getBytes());
         outputStream.flush();
         outputStream.close();
@@ -133,10 +132,4 @@ class read{
         socket.close();
     }
 }
-class testJedis{
-    public static void main(String[] args) {
-        Jedis jedis = new Jedis("localhost",6379);
-        String s = jedis.get("1");
-        System.out.println(s);
-    }
-}
+

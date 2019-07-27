@@ -1,5 +1,6 @@
 package com.ryml.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.ryml.entity.Menu;
 import com.ryml.entity.Student;
 import com.ryml.service.StudentService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +29,8 @@ public class TestController {
     @Autowired
     private StudentService studentService;
 
+    @Reference
+    private StudentService studentService1;
     @RequestMapping("/getAll")
     @ResponseBody
     public List<Student> getAll(){
@@ -44,6 +48,12 @@ public class TestController {
     public Date test1(Date date){
         System.out.println(date);
         return date;
+    }
+
+    @RequestMapping("/myTest")
+    @ResponseBody
+    public List<Student> myTest(){
+        return studentService1.getAll();
     }
 
     @RequestMapping("/test")

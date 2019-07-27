@@ -62,7 +62,7 @@ public class DateConverterConfig implements Converter<String, Date> {
             DateFormat dateFormat = new SimpleDateFormat(format);
             date = dateFormat.parse(dateStr);
         } catch (Exception e) {
-            logger.error("测试");
+            logger.error("日期转换异常");
         }
         return date;
     }

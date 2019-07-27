@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!--服务中心Id-->
+	<dubbo:application name="helloDubbo"/>
+
+	<!--配置中心存储服务列表-->
+	<dubbo:registry protocol = "zookeeper" address="192.168.17.131:2181"/>
+
+	<!--声明dubbo服务监听端口为20080兵声明通讯协议为dubbo-->
+	<dubbo:protocol name = "dubbo" port="20080"/>
+
+	<!--暴露服务接口-->
+	<dubbo:service interface="com.ryml.service.StudentService" ref = "com.ryml.service.impl.StudentServiceImpl"/>
+
+</beans>

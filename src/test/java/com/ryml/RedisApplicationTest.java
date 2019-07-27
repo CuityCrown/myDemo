@@ -8,7 +8,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
+import redis.clients.jedis.Jedis;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,6 +37,16 @@ public class RedisApplicationTest {
         ValueOperations<String, Integer> stringIntegerValueOperations = redisTemplate.opsForValue();
         stringIntegerValueOperations.set(RedisCommonEnum.STUDENT.getValue(),1234123);
         System.out.println("测试======"+stringIntegerValueOperations.get(RedisCommonEnum.STUDENT.getValue()));
+    }
+
+    @Test
+    public void testTransaction(){
+        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
+        redisTemplate.multi();
+        valueOperations.set("name","张三");
+        valueOperations.set("age",18);
+        valueOperations.set("sex","男");
+        redisTemplate.exec();
     }
 
     @Test
@@ -59,3 +76,60 @@ public class RedisApplicationTest {
     }
 
 }
+class woshi{
+    public static void main(String[] args) throws IOException {
+        ServerSocket server = new ServerSocket(6380);
+        Socket socket = server.accept();
+        byte[] chars = new byte[64];
+        socket.getInputStream().read(chars);
+        System.out.println(new String(chars));
+    }
+}
+class nicai{
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket();
+        socket.connect(new InetSocketAddress("localhost",6379));
+        OutputStream outputStream = socket.getOutputStream();
+        StringBuffer stringBuffer = new StringBuffer();
+        String value = "你猜啊啊啊啊";
+        stringBuffer.append("*3").append("\r\n");
+        //命令
+        stringBuffer.append("$3").append("\r\n");
+        stringBuffer.append("SET").append("\r\n");
+        //key
+        stringBuffer.append("$1").append("\r\n");
+        stringBuffer.append("1").append("\r\n");
+        //value
+        stringBuffer.append("$").append(value.getBytes().length).append("\r\n");
+        stringBuffer.append(value).append("\r\n");
+        outputStream.write(stringBuffer.toString().getBytes());
+        outputStream.flush();
+        outputStream.close();
+        socket.close();
+    }
+}
+class read{
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket();
+        socket.connect(new InetSocketAddress("localhost",6379));
+        OutputStream outputStream = socket.getOutputStream();
+        InputStream inputStream = socket.getInputStream();
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("*2").append("\r\n");
+        //命令
+        stringBuffer.append("$3").append("\r\n");
+        stringBuffer.append("GET").append("\r\n");
+        //key
+        stringBuffer.append("$1").append("\r\n");
+        stringBuffer.append("1").append("\r\n");
+        outputStream.write(stringBuffer.toString().getBytes());
+        byte[] b = new byte[4096];
+        inputStream.read(b);
+        System.out.println(new String(b));
+        outputStream.flush();
+        outputStream.close();
+        inputStream.close();
+        socket.close();
+    }
+}
+

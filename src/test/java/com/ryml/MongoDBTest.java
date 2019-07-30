@@ -1,16 +1,12 @@
 package com.ryml;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mongodb.MongoClient;
-import com.mongodb.ReadConcern;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * description:zookeeper测试类
@@ -21,16 +17,23 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 public class MongoDBTest {
 
+    MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+
     @Test
-    public void Test(){
-        MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+    public void createCollection(){
         // 连接到数据库
         MongoDatabase mongoDatabase = mongoClient.getDatabase("mycol");
         //创建collection
-        // mongoDatabase.createCollection("mycol");
+        mongoDatabase.createCollection("student");
+
+    }
+
+    @Test
+    public void insert(){
+        // 连接到数据库
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("mycol");
 
         MongoCollection<Document> student = mongoDatabase.getCollection("student");
-
         //插入数据
         Document document = new Document();
         document.append("id","2");
@@ -38,12 +41,30 @@ public class MongoDBTest {
         document.append("age","25");
         document.append("sex","女");
         student.insertOne(document);
-
     }
 
     @Test
-    public void test1(){
-        MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+    public void delete(){
+        // 连接到数据库
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("mycol");
+
+        MongoCollection<Document> student = mongoDatabase.getCollection("student");
+
+        student.deleteOne(Filters.eq("name","yyx"));
+    }
+
+    @Test
+    public void update(){
+        // 连接到数据库
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("mycol");
+
+        MongoCollection<Document> student = mongoDatabase.getCollection("student");
+
+        student.updateOne(Filters.eq("name", "刘一博"), new Document("$set",new Document("name","GuityCrown")));
+    }
+
+    @Test
+    public void select(){
         // 连接到数据库
         MongoDatabase mongoDatabase = mongoClient.getDatabase("mycol");
 
@@ -56,6 +77,16 @@ public class MongoDBTest {
         for (Document document : documents) {
             System.out.println(document.toJson());
         }
+    }
+
+    @Test
+    public void test1(){
+        // 连接到数据库
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("mycol");
+
+        //获取collection
+        MongoCollection<Document> student = mongoDatabase.getCollection("student");
+
     }
 
 }

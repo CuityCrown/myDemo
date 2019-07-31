@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -56,6 +57,23 @@ public class MyDemoTest {
             thread.start();
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test2(){
+        Integer i = 0;
+        try{
+            List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8);
+            for (Integer integer : list) {
+                i = integer;
+                if (integer == 6){
+                    throw new RuntimeException("测试啊啊啊");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println(i+"测试啊啊");
         }
     }
 

@@ -87,6 +87,7 @@ public class MongoDBTest {
         //获取collection
         MongoCollection<Document> student = mongoDatabase.getCollection("student");
 
+
     }
 
 }

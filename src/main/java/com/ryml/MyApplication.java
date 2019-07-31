@@ -14,11 +14,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
  * @date 2019/6/17
  */
 @SpringBootApplication
-@EnableDubbo
+//@EnableDubbo
 @MapperScan("/com/ryml/mapper")
 @EntityScan("/com/ryml/entity")
 public class MyApplication {
     public static void main(String[] args) {
+
         SpringApplication.run(MyApplication.class,args);
     }
 }

@@ -20,12 +20,12 @@ public class FieldsValidator implements Validator {
 
     @Override
     public <T> ValidationContext initValidationContext(T object) throws ClassNotFoundException {
-        ValidationContext validationContext = new ValidationContext(object);
+        ValidationContext validationContext = new ValidationContext<T>(object);
 
         //本体类Field获取
         Class<?> aClass = validationContext.getObject().getClass();
-        Field[] NoumenonFields = aClass.getDeclaredFields();
-        validationContext.addField(NoumenonFields);
+        Field[] noumenonFields = aClass.getDeclaredFields();
+        validationContext.addField(noumenonFields);
 
         //本体类实现接口Field获取
         AnnotatedType[] annotatedInterfaces = aClass.getAnnotatedInterfaces();

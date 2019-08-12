@@ -67,26 +67,24 @@ public class ZkApplicationTest {
         System.out.println(s2);
         List<String> strings = curatorFramework.getChildren().forPath("/lock");
         for (int i = 0; i < strings.size(); i++) {
-            if (s1.equals("/lock/"+strings.get(i))){
+            if (s2.equals("/lock/"+strings.get(i))){
                 System.out.println(strings.get(i));
                 if (i == 0){
                     //获取锁
-
                     //删除节点
-
                 }else{
                     //设置监听事件
                     curatorFramework.getData().usingWatcher(new CuratorWatcher() {
                         @Override
                         public void process(WatchedEvent event) throws Exception {
                             //回调
-                            //删除节点
+                            System.out.println("啊呦不错哦");
+
                         }
                     }).forPath("/lock/"+strings.get(i-1));
                 }
             }
         }
-        System.out.println(strings);
     }
 
     @Test

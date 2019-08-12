@@ -1,7 +1,12 @@
 package com.ryml;
 
+import com.alibaba.fastjson.JSONObject;
+import com.ryml.entity.Dog;
+import org.apache.curator.CuratorZookeeperClient;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.WatchedEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,12 +71,34 @@ public class ZkApplicationTest {
                 System.out.println(strings.get(i));
                 if (i == 0){
                     //获取锁
+
+                    //删除节点
+
                 }else{
                     //设置监听事件
+                    curatorFramework.getData().usingWatcher(new CuratorWatcher() {
+                        @Override
+                        public void process(WatchedEvent event) throws Exception {
+                            //回调
+                            //删除节点
+                        }
+                    }).forPath("/lock/"+strings.get(i-1));
                 }
             }
         }
         System.out.println(strings);
+    }
+
+    @Test
+    public void test1(){
+        Dog dog = new Dog();
+        dog.setAge(18);
+        dog.setName("测试");
+        dog.setId(1);
+        Object obj = dog;
+        JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(obj));
+        Object name = jsonObject.get("age");
+        System.out.println(name);
     }
 
 

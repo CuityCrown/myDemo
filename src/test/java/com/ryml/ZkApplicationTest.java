@@ -5,6 +5,7 @@ import com.ryml.entity.Dog;
 import org.apache.curator.CuratorZookeeperClient;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.CuratorWatcher;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.junit.Test;
@@ -15,9 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 
-import java.io.FilterOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -71,7 +71,9 @@ public class ZkApplicationTest {
                 System.out.println(strings.get(i));
                 if (i == 0){
                     //获取锁
+
                     //删除节点
+
                 }else{
                     //设置监听事件
                     curatorFramework.getData().usingWatcher(new CuratorWatcher() {
@@ -85,6 +87,7 @@ public class ZkApplicationTest {
                 }
             }
         }
+        System.out.println("测试");
     }
 
     @Test
@@ -99,6 +102,45 @@ public class ZkApplicationTest {
         System.out.println(name);
     }
 
+    @Test
+    public void testZKLock() throws Exception {
+        InterProcessMutex mutexLock = new InterProcessMutex(curatorFramework, "/lock/" + "myDemo");
+        mutexLock.acquire();
+        System.out.println("我执行了z1");
+        mutexLock.acquire();
+        System.out.println("我执行了z3");
+        mutexLock.release();
+        mutexLock.release();
+    }
+
+    @Test
+    public void testZKLock2() throws Exception {
+        InterProcessMutex mutexLock = new InterProcessMutex(curatorFramework, "/lock/" + "myDemo");
+        mutexLock.acquire();
+        System.out.println("我执行了z2");
+        mutexLock.release();
+    }
+
+    public static String getParmFromRequestBody(HttpServletRequest request) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        String line = null;
+        StringBuilder sb = new StringBuilder();
+        try {
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
 
 }
 

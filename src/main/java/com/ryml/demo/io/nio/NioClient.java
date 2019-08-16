@@ -1,10 +1,13 @@
 package com.ryml.demo.io.nio;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 
 /**
@@ -28,8 +31,14 @@ public class NioClient {
                 SelectionKey selectionKey = iterator.next();
                 //防止重复轮询
                 iterator.remove();
-                if (selectionKey.isReadable()){
-
+                if (selectionKey.isWritable()){
+                    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(1024);
+                    writeBuffer.clear();
+                    writeBuffer.put("测试".getBytes());
+                    writeBuffer.flip();
+                    while(writeBuffer.hasRemaining()){
+                        socketChannel.write(writeBuffer);
+                    }
                 }
             }
         }

@@ -17,6 +17,7 @@ import java.util.List;
  * @date 2019/6/18
  */
 @Service
+@com.alibaba.dubbo.config.annotation.Service(interfaceClass = StudentService.class)
 public class StudentServiceImpl implements StudentService{
 
 

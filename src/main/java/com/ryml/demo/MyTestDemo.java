@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -39,6 +40,9 @@ public class MyTestDemo {
     @Test
     public void testM(){
 
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        Object put = linkedHashMap.put("1", 2);
+        System.out.println(put);
     }
 
     @Test

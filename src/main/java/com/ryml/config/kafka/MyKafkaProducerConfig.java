@@ -15,7 +15,6 @@ import java.util.Properties;
  * @version V1.0
  * @date 2019/8/20 23:30
  */
-@Configuration
 public class MyKafkaProducerConfig {
 
 

@@ -7,6 +7,7 @@ import com.ryml.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,8 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public List<Student> getAll() {
-        return studentMapper.getAll();
+        return new ArrayList<>();
+        //return studentMapper.getAll();
     }
 
     @Override

@@ -22,7 +22,7 @@ public final class DateUtil {
     public static final String LONG_PATTERN_SSS = "yyyy-MM-dd HH:mm:ss.SSS";
 
     public static void main(String[] args) {
-        System.out.println(getWeekOfDate(new Date()));
+        /*System.out.println(getWeekOfDate(new Date()));
         System.out.println(tryParse("2019-09-07 16:07:34"));
         System.out.println(tryParse("2019-09-07 16:07:34"));
         String str = "2019-09-07 16:25:25.123";
@@ -31,7 +31,9 @@ public final class DateUtil {
         System.out.println(tryParse(str,LONG_PATTERN_SSS));
         System.out.println(format(new Date(),LONG_PATTERN_SSS));
 
-        System.out.println(jointDateAndTime(getCurrentDate(),tryParse("1970-01-01 12:12:12")));
+        System.out.println(jointDateAndTime(getCurrentDate(),tryParse("1970-01-01 12:12:12")));*/
+        Date date1 = tryParse("2017-02-00 08:00:00", "HH:mm:ss");
+        System.out.println(date1);
     }
 
     /**
@@ -115,6 +117,7 @@ public final class DateUtil {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         return localDateTime.format(DateTimeFormatter.ofPattern(pattern));
     }
+
 
     /**
      * 格式化日期为字符串    如不指定，默认转换格式： yyyy-MM-dd HH:mm:ss

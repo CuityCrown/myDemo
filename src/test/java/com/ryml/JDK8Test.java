@@ -146,12 +146,40 @@ public class JDK8Test {
         for (Object o : collect2) {
             Integer[] i3 = (Integer[]) o;
             for (Integer integer : i3) {
-                System.out.print(integer+",");
+                System.out.print(integer + ",");
             }
             System.out.println();
         }
     }
 
+    @Test
+    public void testReduce() {
+        List<Integer> is = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+
+        is.stream().reduce(Integer::min).ifPresent(System.out::println);
+
+        is.stream().reduce(Integer::max).ifPresent(System.out::println);
+
+        is.stream().reduce(Integer::sum).ifPresent(System.out::println);
+
+        Integer reduce = is.stream().reduce(0, Integer::sum);
+
+        System.out.println(reduce);
+    }
+
+    @Test
+    public void testRange() {
+        IntStream.rangeClosed(1, 100).boxed().
+                flatMap(a -> IntStream.rangeClosed(a, 100).
+                        filter(b -> Math.sqrt(a * a + b * b) % 1 == 0).
+                        mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)})
+                ).limit(5).forEach(c -> System.out.println(c[0]+","+c[1]+","+c[2]));
+    }
+
+    @Test
+    public void testStreamIterate(){
+        Stream.iterate(new int[]{0,1},n->new int[]{n[1],n[0]+n[1]}).limit(10).map(n->n[0]).forEach(System.out::println);
+    }
 }
 
 interface A {

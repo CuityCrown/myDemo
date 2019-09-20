@@ -7,9 +7,9 @@ import com.ryml.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,36 +31,37 @@ public class TestController {
 
     @Reference
     private StudentService studentService1;
+
     @RequestMapping("/getAll")
     @ResponseBody
-    public List<Student> getAll(){
+    public List<Student> getAll() {
         return studentService.getAll();
     }
 
     @RequestMapping("/getMenu")
     @ResponseBody
-    public List<Menu> getMenu(){
+    public List<Menu> getMenu() {
         return studentService.getMenu();
     }
 
     @RequestMapping("/testDateFormat")
     @ResponseBody
-    public Date test1(Date date){
+    public Date test1(Date date) {
         System.out.println(date);
         return date;
     }
 
     @RequestMapping("/myTest")
     @ResponseBody
-    public List<Student> myTest(){
+    public List<Student> myTest() {
         return studentService1.getAll();
     }
 
     @RequestMapping("/test")
-    public void test(Student student){
+    public void test(Student student) {
         try {
             studentService.insert(student);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 

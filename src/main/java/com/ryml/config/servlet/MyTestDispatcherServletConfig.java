@@ -13,7 +13,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @version V1.0
  * @date 2019/8/1
  */
-//@Configuration  测试自定义DispatcherServlet不要轻易打开  会导致参数接受不到
+//@Configuration  测试自定义DispatcherServlet 不要轻易打开 会导致参数接受不到
 public class MyTestDispatcherServletConfig {
 
     @Bean

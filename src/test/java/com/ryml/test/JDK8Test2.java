@@ -4,10 +4,9 @@ import com.ryml.entity.Trader;
 import com.ryml.entity.Transaction;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * description:
@@ -19,6 +18,8 @@ import java.util.stream.Collectors;
 public class JDK8Test2 {
 
     private static List<Transaction> list;
+
+    private static Map<String, Object> map;
 
     static {
         Trader liuyb = new Trader("liuyb", "beijing");
@@ -35,6 +36,12 @@ public class JDK8Test2 {
                 new Transaction(zongps, 2012, 2000),
                 new Transaction(liry, 2012, 1000)
         );
+        map = new HashMap<>();
+        map.put("liuyb", liuyb);
+        map.put("maosl", maosl);
+        map.put("liyh", liyh);
+        map.put("zongps", zongps);
+        map.put("liry", liry);
     }
 
     @Test
@@ -78,6 +85,36 @@ public class JDK8Test2 {
     public void findMaxOrMinAmount() {
         list.stream().mapToInt(Transaction::getAmount).min().ifPresent(System.out::println);
         list.stream().mapToInt(Transaction::getAmount).max().ifPresent(System.out::println);
+    }
+
+    @Test
+    public void testUpdateStreamType() {
+        list.stream()
+                .parallel() //转换为并发流
+                .sequential(); //转换成普通流
+    }
+
+    @Test
+    public void testParallelStream() {
+        map.values().parallelStream().forEach(System.out::println);
+        System.out.println("===================");
+        map.values().parallelStream().forEach(System.out::println);
+    }
+
+    @Test
+    public void testGenerateAndIterate() {
+        List<Double> collect = Stream.generate(Math::random).limit(10).collect(Collectors.toList());
+        System.out.println(collect);
+        List<Integer> collect1 = Stream.iterate(1, n -> {
+            System.out.println(n);
+            return n + 1;
+        }).limit(13).collect(Collectors.toList());
+        System.out.println(collect1);
+    }
+
+    @Test
+    public void testRabbit() {
+
     }
 
 }

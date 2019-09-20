@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface StudentMapper {
 
-    public List<Student> getAll();
+    List<Student> getAll();
 
-    public List<Menu> getMenu();
+    List<Menu> getMenu();
 
     void insert(Student student);
 }

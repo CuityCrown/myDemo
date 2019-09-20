@@ -3,7 +3,12 @@
 <mapper namespace="com.ryml.mapper.StudentMapper" >
 
     <select id="getAll" resultType="com.ryml.entity.Student">
-      SELECT * FROM student
+      SELECT id,
+             name,
+             age,
+             my_time as myTime,
+             test as myTest
+      FROM student
     </select>
 
     <resultMap id="menuMap" type="com.ryml.entity.Menu">

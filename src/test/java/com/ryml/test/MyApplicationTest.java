@@ -1,4 +1,4 @@
-package com.ryml;
+package com.ryml.test;
 
 import com.google.common.collect.Lists;
 import com.ryml.controller.TestController;

@@ -1,4 +1,4 @@
-package com.ryml;
+package com.ryml.test;
 
 import com.ryml.enums.RedisCommonEnum;
 import org.junit.Test;

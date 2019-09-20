@@ -1,4 +1,4 @@
-package com.ryml;
+package com.ryml.test;
 
 /**
  * description:MongoDB测试类

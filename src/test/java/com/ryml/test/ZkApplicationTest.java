@@ -1,4 +1,4 @@
-package com.ryml;
+package com.ryml.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ryml.entity.Dog;

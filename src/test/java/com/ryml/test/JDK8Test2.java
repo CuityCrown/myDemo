@@ -113,8 +113,15 @@ public class JDK8Test2 {
     }
 
     @Test
-    public void testRabbit() {
+    public void testGroupBy() {
+        Map<String, List<Transaction>> collect = list.stream().collect(Collectors.groupingBy(n -> n.getTrader().getCity()));
+        System.out.println(collect);
+    }
 
+    @Test
+    public void testPattionBy(){
+        Map<Boolean, List<Transaction>> collect = list.stream().collect(Collectors.partitioningBy(n -> Boolean.parseBoolean(n.getTrader().getName())));
+        System.out.println(collect);
     }
 
 }

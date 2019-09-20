@@ -2,7 +2,6 @@ package com.ryml.config.servlet;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -17,7 +16,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class MyTestDispatcherServletConfig {
 
     @Bean
-    public ServletRegistrationBean restServlet(){
+    public ServletRegistrationBean<DispatcherServlet> restServlet(){
         //注解扫描上下文
         AnnotationConfigWebApplicationContext applicationContext
                 = new AnnotationConfigWebApplicationContext();
@@ -28,8 +27,8 @@ public class MyTestDispatcherServletConfig {
                 = new MyDispatcherServler(applicationContext);
 
         //用ServletRegistrationBean包装servlet
-        ServletRegistrationBean registrationBean
-                = new ServletRegistrationBean(rest_dispatcherServlet);
+        ServletRegistrationBean<DispatcherServlet> registrationBean =
+                new ServletRegistrationBean<>(rest_dispatcherServlet);
         registrationBean.setLoadOnStartup(1);
         //指定urlmapping
         registrationBean.addUrlMappings("/*");

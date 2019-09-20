@@ -30,8 +30,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public List<Student> getAll() {
-        return new ArrayList<>();
-        //return studentMapper.getAll();
+        return studentMapper.getAll();
     }
 
     @Override

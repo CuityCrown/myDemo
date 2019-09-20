@@ -51,14 +51,14 @@ public class JDK8Test2 {
 
     @Test
     public void findTrader() {
-        List<Trader> collect = list.stream().filter(ts -> "beijing".equals(ts.getTrader().getCity())).map(Transaction::getTrader).
-                distinct().sorted(Comparator.comparing(Trader::getName)).collect(Collectors.toList());
+        List<Trader> collect = list.stream().filter(ts -> "beijing".equals(ts.getTrader().getCity())).distinct().
+                map(Transaction::getTrader).sorted(Comparator.comparing(Trader::getName)).limit(3).collect(Collectors.toList());
         System.out.println(collect);
     }
 
     @Test
     public void findTraderName() {
-        List<String> collect = list.stream().map(ts -> ts.getTrader().getName()).distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
+        String collect = list.stream().map(ts -> ts.getTrader().getName()).distinct().sorted(Comparator.naturalOrder()).collect(Collectors.joining());
         System.out.println(collect);
     }
 

@@ -41,7 +41,7 @@
     </select>
 
     <insert id="insert" parameterType="com.ryml.entity.Student">
-      INSERT INTO student(name,age,my_time,test) values(${name},${age},${myTest},${myTest})
+      INSERT INTO student(name,age,my_time,test) values(#{name},${age},${myTest},${myTest})
     </insert>
 
 </mapper>

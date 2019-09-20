@@ -57,15 +57,8 @@ public class TestController {
     }
 
     @RequestMapping("/test")
-    public void test() throws ParseException {
+    public void test(Student student){
         try {
-            Student student = new Student();
-            student.setId(1);
-            student.setName("测试");
-            student.setAge(123);
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        student.setMyTime(simpleDateFormat.parse("2019-07-03"));
-            student.setMyTest("2019-07-01");
             studentService.insert(student);
         }catch (Exception e){
             System.out.println(e);

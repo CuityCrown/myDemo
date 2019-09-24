@@ -21,10 +21,16 @@ public class JxcellTest {
      * @throws CellException
      */
     @Test
-    public void encrypt() throws IOException, CellException {
+    public void encrypt() {
         View view = new View();
-        view.read("D:/test.xls");
-        view.write("D:/test.xls","123456");
+        try {
+            view.read("D:/test.xls");
+            view.write("D:/test.xls","123456");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CellException e) {
+            e.printStackTrace();
+        }
     }
 
 }

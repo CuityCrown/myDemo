@@ -36,8 +36,7 @@ public class DisposePictureUtils {
             is = new FileInputStream(file);
             // 如果是MultipartFile类型，那么自身也有转换成流的方法：is = file.getInputStream();
             BufferedImage bi = ImageIO.read(is);
-            Image image = bi;
-            ImageIcon imageIcon = new ImageIcon(image);
+            ImageIcon imageIcon = new ImageIcon(bi);
             BufferedImage bufferedImage = new BufferedImage(imageIcon.getIconWidth(), imageIcon.getIconHeight(),
                     BufferedImage.TYPE_4BYTE_ABGR);
             Graphics2D g2D = (Graphics2D) bufferedImage.getGraphics();

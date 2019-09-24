@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,6 +74,14 @@ public class RedisApplicationTest {
 
         Thread.sleep(10000);
         System.out.println("主线程结束");
+    }
+
+    @Test
+    public void testJedis(){
+        JedisPool jedisPool = new JedisPool("localhost",6379);
+        Jedis resource = jedisPool.getResource();
+        String s = resource.get("1");
+        System.out.println(s);
     }
 
 }

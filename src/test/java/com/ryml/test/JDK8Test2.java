@@ -123,5 +123,4 @@ public class JDK8Test2 {
         Map<Boolean, List<Transaction>> collect = list.stream().collect(Collectors.partitioningBy(n -> Boolean.parseBoolean(n.getTrader().getName())));
         System.out.println(collect);
     }
-
 }

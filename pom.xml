@@ -88,12 +88,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
-        </dependency>
         <!--fastJson-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -157,19 +151,14 @@
             <artifactId>mongo-java-driver</artifactId>
             <version>3.8.2</version>
         </dependency>-->
-        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.101tec/zkclient -->
 
+        <!-- https://mvnrepository.com/artifact/com.101tec/zkclient -->
         <dependency>
             <groupId>com.alibaba.boot</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>0.2.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.alibaba.spring</groupId>
             <artifactId>spring-context-support</artifactId>
@@ -181,6 +170,17 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
             <version>2.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
         </dependency>
     </dependencies>
 

@@ -1,5 +1,7 @@
 package com.ryml.test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.ryml.entity.Trader;
 import com.ryml.entity.Transaction;
 import org.junit.Test;
@@ -121,6 +123,14 @@ public class JDK8Test2 {
     @Test
     public void testPattionBy(){
         Map<Boolean, List<Transaction>> collect = list.stream().collect(Collectors.partitioningBy(n -> Boolean.parseBoolean(n.getTrader().getName())));
+        System.out.println(collect);
+    }
+
+    @Test
+    public void testT(){
+        JSONArray jsonArr = JSON.parseArray("[[\"683\",\"0\"],[\"698\",\"1\"],[\"673\",\"2\"],[\"674\",\"3\"],[\"681\",\"4\"],[\"699\",\"5\"]]");
+        JSONArray[] jsonArrays = jsonArr.toArray(new JSONArray[jsonArr.size()]);
+        List<String> collect = Arrays.stream(jsonArrays).sorted(Comparator.comparingInt(a -> Integer.valueOf(a.getString(1)))).map(a -> a.get(0).toString()).collect(Collectors.toList());
         System.out.println(collect);
     }
 }

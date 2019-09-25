@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,10 +79,14 @@ public class RedisApplicationTest {
 
     @Test
     public void testJedis(){
-        JedisPool jedisPool = new JedisPool("localhost",6379);
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxTotal(1);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig,"localhost",6379);
         Jedis resource = jedisPool.getResource();
         String s = resource.get("1");
-        System.out.println(s);
+        resource.close();
+        Jedis resource1 = jedisPool.getResource();
+        System.out.println(resource.equals(resource1));
     }
 
 }

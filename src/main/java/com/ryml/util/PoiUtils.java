@@ -6,6 +6,10 @@ import org.apache.poi.poifs.crypt.EncryptionInfo;
 import org.apache.poi.poifs.crypt.EncryptionMode;
 import org.apache.poi.poifs.crypt.Encryptor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.junit.Test;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,6 +54,18 @@ public class PoiUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testJedis(){
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxTotal(1);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig,"localhost",6379);
+        Jedis resource = jedisPool.getResource();
+        String s = resource.get("1");
+        System.out.println(resource);
+        Thread t = new Thread(()-> System.out.println(jedisPool.getResource()));
+        t.start();
     }
 
 }

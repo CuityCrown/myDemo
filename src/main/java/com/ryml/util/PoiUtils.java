@@ -20,8 +20,13 @@ import java.io.OutputStream;
  */
 public class PoiUtils {
 
+
+    public static void main(String[] args) {
+        encrypt("D:/myTest2.xlsx","123456");
+    }
+
     /**
-     * Excel加密
+     * Excel加密xml格式(.xlsx)
      * @param fileUrl
      */
     public static void encrypt(String fileUrl,String password){

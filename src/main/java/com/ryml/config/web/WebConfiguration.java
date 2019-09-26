@@ -1,8 +1,10 @@
-package com.ryml.config.filter;
+package com.ryml.config.web;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +15,14 @@ import java.io.IOException;
  *
  * @author 刘一博
  * @version V1.0
- * @date 2019/6/17
+ * @date 2019/9/26 17:48
  */
 @Configuration
-public class WebConfiguration {
+public class WebConfiguration implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new MyHandlerInterceptor());
+    }
 
     @Bean
     public FilterRegistrationBean testFilterRegistrationBean(){
@@ -29,7 +35,7 @@ public class WebConfiguration {
         return filterRegistrationBean;
     }
 
-    class MyFilter implements Filter{
+    class MyFilter implements Filter {
 
         @Override
         public void init(FilterConfig filterConfig) throws ServletException {
@@ -48,5 +54,4 @@ public class WebConfiguration {
 
         }
     }
-
 }

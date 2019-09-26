@@ -3,9 +3,17 @@ package com.ryml.test;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.ryml.entity.Student;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -177,6 +185,17 @@ public class JDK8Test {
     @Test
     public void testStreamIterate(){
         Stream.iterate(new int[]{0,1},n->new int[]{n[1],n[0]+n[1]}).limit(10).map(n->n[0]).forEach(System.out::println);
+    }
+
+    @Test
+    public void testD() throws IOException {
+        HttpGet httpGet = new HttpGet("http://api.map.baidu.com/location/ip?ip=111.199.191.251&ak=tlmoYKcoazSg0dmp9G14DpKW4IutyfUz&coor=bd09ll");
+        CloseableHttpClient client = HttpClients.createDefault();
+        CloseableHttpResponse response = client.execute(httpGet);
+        HttpEntity entity = response.getEntity();
+        String result = EntityUtils.toString(entity);
+        String gbk = new String(result.getBytes("gbk"), StandardCharsets.UTF_8);
+        System.out.println(gbk);
     }
 }
 

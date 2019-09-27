@@ -121,13 +121,22 @@ public class JDK8Test2 {
     }
 
     @Test
-    public void testPattionBy(){
+    public void testPattionBy() {
         Map<Boolean, List<Transaction>> collect = list.stream().collect(Collectors.partitioningBy(n -> Boolean.parseBoolean(n.getTrader().getName())));
         System.out.println(collect);
     }
 
     @Test
-    public void testT(){
+    public void testToMap() {
+        //Map<Integer, Transaction> collect = list.stream().collect(Collectors.toMap(Transaction::getYear, v -> v));
+        //做key重复策略处理否则报错
+        Map<Integer, Transaction> collect = list.stream().collect(Collectors.toMap(Transaction::getYear, v -> v, (v, v2) -> v));
+        System.out.println(collect);
+    }
+
+
+    @Test
+    public void testT() {
         JSONArray jsonArr = JSON.parseArray("[[\"683\",\"0\"],[\"698\",\"1\"],[\"673\",\"2\"],[\"674\",\"3\"],[\"681\",\"4\"],[\"699\",\"5\"]]");
         JSONArray[] jsonArrays = jsonArr.toArray(new JSONArray[jsonArr.size()]);
         List<String> collect = Arrays.stream(jsonArrays).sorted(Comparator.comparingInt(a -> Integer.valueOf(a.getString(1)))).map(a -> a.get(0).toString()).collect(Collectors.toList());

@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @description 日期工具类  基于jdk 1.8
+ * @description 日期工具类  基于jdk 1.8  (注意一下单年月日 或者单时分秒处理   1.8的api有点问题)
  * @author 毛双领
  * @create 2019-09-07 13:59
  */

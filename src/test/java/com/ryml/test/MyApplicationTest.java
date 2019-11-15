@@ -3,7 +3,7 @@ package com.ryml.test;
 import com.google.common.collect.Lists;
 import com.ryml.controller.TestController;
 import com.ryml.util.Dog;
-import com.ryml.util.MyApplicationContextUtils;
+import com.ryml.util.SpringContextUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
@@ -146,12 +146,9 @@ public class MyApplicationTest {
         }
     }
 
-    @Autowired
-    private MyApplicationContextUtils myApplicationContextUtils;
-
     @Test
     public void test1(){
-        System.out.println(myApplicationContextUtils.test());
+        System.out.println(SpringContextUtils.getBean(""));
     }
 
     @Test

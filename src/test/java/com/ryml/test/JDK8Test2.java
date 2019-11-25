@@ -2,6 +2,8 @@ package com.ryml.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.ryml.entity.Menu;
 import com.ryml.entity.Trader;
 import com.ryml.entity.Transaction;
 import org.junit.Test;
@@ -141,5 +143,64 @@ public class JDK8Test2 {
         JSONArray[] jsonArrays = jsonArr.toArray(new JSONArray[jsonArr.size()]);
         List<String> collect = Arrays.stream(jsonArrays).sorted(Comparator.comparingInt(a -> Integer.valueOf(a.getString(1)))).map(a -> a.get(0).toString()).collect(Collectors.toList());
         System.out.println(collect);
+    }
+
+    @Test
+    public void testParallelStream2(){
+        Long start = System.currentTimeMillis();
+        List<Trader> collect = list.stream().parallel().map(transaction -> {
+            System.out.println(transaction+"===========");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return transaction.getTrader();
+        }).collect(Collectors.toList());
+        System.out.println(collect);
+        Long end = System.currentTimeMillis();
+        System.out.println(end-start);
+        Long start2 = System.currentTimeMillis();
+        List<Trader> collect2 = list.stream().map(transaction -> {
+            System.out.println(transaction+"-------------");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return transaction.getTrader();
+        }).collect(Collectors.toList());
+        Long end2 = System.currentTimeMillis();
+        System.out.println(collect2);
+        System.out.println(end2-start2);
+    }
+
+    @Test
+    public void testMenu(){
+        Menu menu1 = new Menu(1,"动物",0,null);
+        Menu menu2 = new Menu(2,"药品",0,null);
+        Menu menu3 = new Menu(3,"鸟类",1,null);
+        Menu menu4 = new Menu(4,"哺乳类",1,null);
+        Menu menu5 = new Menu(5,"中药",2,null);
+        Menu menu6 = new Menu(6,"西药",2,null);
+        Menu menu7 = new Menu(7,"孔雀",3,null);
+        Menu menu8 = new Menu(8,"熊猫",4,null);
+        Menu menu9 = new Menu(9,"枸杞",5,null);
+        Menu menu10 = new Menu(10,"肾宝片",6,null);
+        List<Menu> menus = Arrays.asList(menu1,menu2,menu3,menu4,menu5,menu6,menu7,menu8,menu9,menu10);
+        Map<Integer, List<Menu>> menuMap = menus.stream().collect(Collectors.groupingBy(Menu::getParentId));
+        List<Menu> recursion = recursion(menuMap.get(0), menuMap);
+        System.out.println(JSONObject.toJSONString(recursion));
+    }
+
+    public List<Menu> recursion(List<Menu> list,Map<Integer, List<Menu>> menuMap){
+        list.forEach(menu->{
+            List<Menu> menus = menuMap.get(menu.getId());
+            if (menus != null){
+                menu.setChildrenMenus(menus);
+                recursion(menus,menuMap);
+            }
+        });
+        return list;
     }
 }

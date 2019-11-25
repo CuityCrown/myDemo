@@ -1,5 +1,9 @@
 package com.ryml.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
@@ -9,6 +13,9 @@ import java.util.List;
  * @version V1.0
  * @date 2019/6/29
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Menu {
 
     private Integer id;

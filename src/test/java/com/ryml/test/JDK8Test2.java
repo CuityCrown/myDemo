@@ -142,7 +142,7 @@ public class JDK8Test2 {
         JSONArray jsonArr = JSON.parseArray("[[\"683\",\"0\"],[\"698\",\"1\"],[\"673\",\"2\"],[\"674\",\"3\"],[\"681\",\"4\"],[\"699\",\"5\"]]");
         JSONArray[] jsonArrays = jsonArr.toArray(new JSONArray[jsonArr.size()]);
         List<String> collect = Arrays.stream(jsonArrays).sorted(Comparator.comparingInt(a -> Integer.valueOf(a.getString(1)))).map(a -> a.get(0).toString()).collect(Collectors.toList());
-        System.out.println(collect);
+        System.out.println("collect");
     }
 
     @Test
@@ -202,5 +202,10 @@ public class JDK8Test2 {
             }
         });
         return list;
+    }
+
+    @Test
+    public void test(){
+
     }
 }

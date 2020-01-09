@@ -35,39 +35,44 @@ public class RedisApplicationTest {
     private RedisTemplate redisTemplate;
 
     @Test
-    public void test(){
+    public void test() {
         ValueOperations<String, Integer> stringIntegerValueOperations = redisTemplate.opsForValue();
-        stringIntegerValueOperations.set(RedisCommonEnum.STUDENT.getValue(),1234123);
-        System.out.println("测试======"+stringIntegerValueOperations.get(RedisCommonEnum.STUDENT.getValue()));
+        stringIntegerValueOperations.set(RedisCommonEnum.STUDENT.getValue(), 1234123);
+        System.out.println("测试======" + stringIntegerValueOperations.get(RedisCommonEnum.STUDENT.getValue()));
     }
 
     @Test
-    public void testTransaction(){
-        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
+    public void test3() {
+        redisTemplate.opsForValue();
+    }
+
+    @Test
+    public void testTransaction() {
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         redisTemplate.multi();
-        valueOperations.set("name","张三");
-        valueOperations.set("age",18);
-        valueOperations.set("sex","男");
+        valueOperations.set("name", "张三");
+        valueOperations.set("age", 18);
+        valueOperations.set("sex", "男");
         redisTemplate.exec();
     }
 
     @Test
     public void test1() throws InterruptedException {
-        ValueOperations<Integer,Integer> valueOperations = redisTemplate.opsForValue();
+        ValueOperations<Integer, Integer> valueOperations = redisTemplate.opsForValue();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                valueOperations.set(1,1,30000, TimeUnit.SECONDS);
+                valueOperations.set(1, 1, 30000, TimeUnit.SECONDS);
                 Integer integer = valueOperations.get(1);
-                System.out.println(integer+"我是线程1");
+                System.out.println(integer + "我是线程1");
             }
         }).start();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Integer integer = valueOperations.get(1);
-                System.out.println(integer+"我是线程2");
-                if (integer != null){
+                System.out.println(integer + "我是线程2");
+                if (integer != null) {
                     System.out.println("我没有获取到锁");
                 }
             }
@@ -78,10 +83,10 @@ public class RedisApplicationTest {
     }
 
     @Test
-    public void testJedis(){
+    public void testJedis() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(1);
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig,"localhost",6379);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, "localhost", 6379);
         Jedis resource = jedisPool.getResource();
         String s = resource.get("1");
         resource.close();
@@ -90,7 +95,8 @@ public class RedisApplicationTest {
     }
 
 }
-class woshi{
+
+class woshi {
     public static void main(String[] args) throws IOException {
         ServerSocket server = new ServerSocket(6380);
         Socket socket = server.accept();
@@ -99,10 +105,11 @@ class woshi{
         System.out.println(new String(chars));
     }
 }
-class nicai{
+
+class nicai {
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress("localhost",6379));
+        socket.connect(new InetSocketAddress("localhost", 6379));
         OutputStream outputStream = socket.getOutputStream();
         StringBuffer stringBuffer = new StringBuffer();
         String value = "你猜啊啊啊啊";
@@ -122,10 +129,11 @@ class nicai{
         socket.close();
     }
 }
-class read{
+
+class read {
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress("localhost",6379));
+        socket.connect(new InetSocketAddress("localhost", 6379));
         OutputStream outputStream = socket.getOutputStream();
         InputStream inputStream = socket.getInputStream();
         StringBuffer stringBuffer = new StringBuffer();

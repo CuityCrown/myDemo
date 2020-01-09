@@ -7,7 +7,9 @@ import com.ryml.entity.Menu;
 import com.ryml.entity.Trader;
 import com.ryml.entity.Transaction;
 import org.junit.Test;
+import org.springframework.util.DigestUtils;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -206,6 +208,52 @@ public class JDK8Test2 {
 
     @Test
     public void test(){
+        String a = "Aa";
+        String b = "BB";
+        System.out.println(a.hashCode());
+        System.out.println(b.hashCode());
+    }
+
+    @Test
+    public void test1() throws NoSuchFieldException, IllegalAccessException {
+        Menu menu = new Menu();
+        menu.setChildrenMenus(new ArrayList<>());
+        menu.setId(1);
+        test2(menu);
+    }
+
+    public void test2(Object obj) throws NoSuchFieldException, IllegalAccessException {
+        Field[] declaredFields = obj.getClass().getDeclaredFields();
+        System.out.println(declaredFields);
+
+        Field id = obj.getClass().getDeclaredField("id");
+        id.setAccessible(true);
+        System.out.println(id.get(obj));
+    }
+
+    @Test
+    public void test3(){
+        String s = DigestUtils.md5DigestAsHex("123".getBytes());
+        System.out.println(s);
+    }
+
+    @Test
+    public void copy(){
+        Menu menu1 = new Menu(1,"动物",0,null);
+        List<Menu> list = new ArrayList<>();
+        list.add(menu1);
+        List<Menu> collect = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        for (Menu menu : collect) {
+            menu.setId(2);
+        }
+        System.out.println(JSONObject.toJSONString(list));
+        System.out.println(JSONObject.toJSONString(collect));
+    }
+
+
+    @Test
+    public void test8(){
 
     }
+
 }

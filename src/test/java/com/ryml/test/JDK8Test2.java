@@ -148,10 +148,10 @@ public class JDK8Test2 {
     }
 
     @Test
-    public void testParallelStream2(){
+    public void testParallelStream2() {
         Long start = System.currentTimeMillis();
         List<Trader> collect = list.stream().parallel().map(transaction -> {
-            System.out.println(transaction+"===========");
+            System.out.println(transaction + "===========");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -161,10 +161,10 @@ public class JDK8Test2 {
         }).collect(Collectors.toList());
         System.out.println(collect);
         Long end = System.currentTimeMillis();
-        System.out.println(end-start);
+        System.out.println(end - start);
         Long start2 = System.currentTimeMillis();
         List<Trader> collect2 = list.stream().map(transaction -> {
-            System.out.println(transaction+"-------------");
+            System.out.println(transaction + "-------------");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -174,40 +174,42 @@ public class JDK8Test2 {
         }).collect(Collectors.toList());
         Long end2 = System.currentTimeMillis();
         System.out.println(collect2);
-        System.out.println(end2-start2);
+        System.out.println(end2 - start2);
     }
 
     @Test
-    public void testMenu(){
-        Menu menu1 = new Menu(1,"动物",0,null);
-        Menu menu2 = new Menu(2,"药品",0,null);
-        Menu menu3 = new Menu(3,"鸟类",1,null);
-        Menu menu4 = new Menu(4,"哺乳类",1,null);
-        Menu menu5 = new Menu(5,"中药",2,null);
-        Menu menu6 = new Menu(6,"西药",2,null);
-        Menu menu7 = new Menu(7,"孔雀",3,null);
-        Menu menu8 = new Menu(8,"熊猫",4,null);
-        Menu menu9 = new Menu(9,"枸杞",5,null);
-        Menu menu10 = new Menu(10,"肾宝片",6,null);
-        List<Menu> menus = Arrays.asList(menu1,menu2,menu3,menu4,menu5,menu6,menu7,menu8,menu9,menu10);
-        Map<Integer, List<Menu>> menuMap = menus.stream().collect(Collectors.groupingBy(Menu::getParentId));
-        List<Menu> recursion = recursion(menuMap.get(0), menuMap);
-        System.out.println(JSONObject.toJSONString(recursion));
+    public void testMenu() {
+        Menu menu1 = new Menu(1, "动物", 0, null);
+        Menu menu2 = new Menu(2, "药品", 0, null);
+        Menu menu3 = new Menu(3, "鸟类", 1, null);
+        Menu menu4 = new Menu(4, "哺乳类", 1, null);
+        Menu menu5 = new Menu(5, "中药", 2, null);
+        Menu menu6 = new Menu(6, "西药", 2, null);
+        Menu menu7 = new Menu(7, "孔雀", 3, null);
+        Menu menu8 = new Menu(8, "熊猫", 4, null);
+        Menu menu9 = new Menu(9, "枸杞", 5, null);
+        Menu menu10 = new Menu(10, "肾宝片", 6, null);
+        List<Menu> menus = Arrays.asList(menu1, menu2, menu3, menu4, menu5, menu6, menu7, menu8, menu9, menu10);
+        Map<Integer, List<Menu>> collect = menus.stream().collect(Collectors.toMap(Menu::getId, (Menu menu) -> {
+            ArrayList<Menu> objects = new ArrayList<>(menu.getChildrenMenus());
+            return objects;
+        }));
+        System.out.println(collect);
     }
 
-    public List<Menu> recursion(List<Menu> list,Map<Integer, List<Menu>> menuMap){
-        list.forEach(menu->{
+    public List<Menu> recursion(List<Menu> list, Map<Integer, List<Menu>> menuMap) {
+        list.forEach(menu -> {
             List<Menu> menus = menuMap.get(menu.getId());
-            if (menus != null){
+            if (menus != null) {
                 menu.setChildrenMenus(menus);
-                recursion(menus,menuMap);
+                recursion(menus, menuMap);
             }
         });
         return list;
     }
 
     @Test
-    public void test(){
+    public void test() {
         String a = "Aa";
         String b = "BB";
         System.out.println(a.hashCode());
@@ -232,14 +234,14 @@ public class JDK8Test2 {
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         String s = DigestUtils.md5DigestAsHex("123".getBytes());
         System.out.println(s);
     }
 
     @Test
-    public void copy(){
-        Menu menu1 = new Menu(1,"动物",0,null);
+    public void copy() {
+        Menu menu1 = new Menu(1, "动物", 0, null);
         List<Menu> list = new ArrayList<>();
         list.add(menu1);
         List<Menu> collect = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
@@ -252,8 +254,13 @@ public class JDK8Test2 {
 
 
     @Test
-    public void test8(){
-
+    public void test8() {
+        List<Person> list = new ArrayList();
+        list.add(new Person("1001", "小A"));
+        list.add(new Person("1002", "小B"));
+        list.add(new Person("1003", null));
+        list.stream().collect(Collectors.toMap(Person::getId,Person::getName));
+        System.out.println(map);
     }
 
 }

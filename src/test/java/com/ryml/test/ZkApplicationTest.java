@@ -40,7 +40,7 @@ public class ZkApplicationTest {
 
     @Test
     public void testZkCreate() throws Exception {
-        String s = curatorFramework.create().creatingParentContainersIfNeeded().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).
+        String s = curatorFramework.create().creatingParentContainersIfNeeded().withMode(CreateMode.PERSISTENT).
                 forPath("/data", "https://www.cnblogs.com/yjmyzz/p/zookeeper-acl-demo.html".getBytes());
         System.out.println(s);
     }

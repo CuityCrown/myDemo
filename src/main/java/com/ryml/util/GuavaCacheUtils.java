@@ -27,7 +27,7 @@ public class GuavaCacheUtils {
 
     public static void main(String[] args) {
         localCache.put("ces", Optional.of(Dog.builder().id(1).build()));
-        localCache.put("ces", null);
+        localCache.invalidate("ces");
         Optional<Dog> ces = localCache.getIfPresent("ces");
         if (ces != null) {
             System.out.println(ces.get());

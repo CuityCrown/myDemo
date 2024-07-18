@@ -10,12 +10,12 @@ import java.io.*;
 public class SteamTest {
 
     public static void main(String[] args) throws IOException {
-        File file = new File("E:\\airlines");
+        File file = new File("E:\\new-airline-logo");
         File[] files = file.listFiles();
         for (File image : files) {
             String name = image.getName();
             String[] split = name.split("\\.");
-            String newName = split[0] + ".png";
+            String newName = split[0].toUpperCase() + ".png";
             FileInputStream fileInputStream = new FileInputStream(image);
             byte[] bytes = new byte[2048];
             File newFile = new File("E:\\new\\" + newName);

@@ -1,4 +1,4 @@
-package com.ryml.demo.ThreadPool;
+package com.ryml.demo.Proxy.ThreadPool;
 
 import com.ryml.entity.Menu;
 import com.ryml.util.ExecutorPoolUtils;
@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -23,14 +20,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ThreadPool {
 
     @Test
-    public void testThreadPoolExecutor(){
+    public void testThreadPoolExecutor() {
         long start = System.currentTimeMillis();
         List<Menu> search = Collections.synchronizedList(new ArrayList<>());
 
 
         CountDownLatch countDownLatch = new CountDownLatch(search.size());
         AtomicInteger atomicInteger = new AtomicInteger(1);
-        System.out.println(search.size()+"开启数量");
+        System.out.println(search.size() + "开启数量");
         for (Menu lenovoBean : search) {
             ExecutorPoolUtils.execute(() -> {
                 try {

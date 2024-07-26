@@ -137,7 +137,6 @@ public class SftpUtils {
 
     public static void main(String[] args) throws IOException {
         SftpUtils sftpUtils = new SftpUtils("airdrop.citizenplane.com", 22, "ftp-user-944", "VireTReo2FfM");
-        sftpUtils.uploadFile(new File("E:\\test.txt"), "/flight-ingest/test.txt");
         sftpUtils.downloadFile("/flight-ingest/test.txt", "D:\\tx\\test.txt");
     }
 

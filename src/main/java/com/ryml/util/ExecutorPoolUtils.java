@@ -17,7 +17,7 @@ public class ExecutorPoolUtils {
     private static ExecutorService threadPoolPond;
 
     static {
-        threadPoolPond = new ThreadPoolExecutor(100, 200, 60,
+        threadPoolPond = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), Runtime.getRuntime().availableProcessors() * 2, 60,
                 TimeUnit.SECONDS, new ArrayBlockingQueue<>(10000), r -> {
             Thread thread = new Thread(r);
             thread.setName("EsPool");

@@ -22,7 +22,7 @@ public class ExecutorPoolUtils {
             Thread thread = new Thread(r);
             thread.setName("EsPool");
             return thread;
-        });
+        }, new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
     public static void submit(Runnable runnable) {
